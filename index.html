@@ -8,11 +8,15 @@
         body {
             margin: 0;
             padding: 40px;
-            background: linear-gradient(to bottom, #ffe6e6, #fff5e6);
+            background: url('https://i.imgur.com/GRc9sxz.jpg') no-repeat center center fixed; /* 這裡設置背景圖片 */
+            background-size: cover;
             font-family: 'Lora', serif;
             color: #4b2e2e;
             line-height: 1.8;
+            position: relative;
+            overflow-x: hidden;
         }
+
         h1 {
             font-family: 'Great Vibes', cursive;
             font-size: 48px;
@@ -20,16 +24,55 @@
             color: #8B0000;
             margin-bottom: 30px;
         }
+
         .letter {
             max-width: 700px;
             margin: auto;
             font-size: 18px;
             white-space: pre-wrap;
+            background: rgba(255, 255, 255, 0.8); /* 背景稍微透明 */
+            padding: 30px;
+            border-radius: 15px;
+        }
+
+        .illustration {
+            display: block;
+            margin: 0 auto 30px;
+            max-width: 600px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .eiffel {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            width: 120px;
+            opacity: 0.7;
+        }
+
+        .plane {
+            position: fixed;
+            top: 60px;
+            left: -200px;
+            width: 100px;
+            animation: fly 20s linear infinite;
+            z-index: 10;
+        }
+
+        @keyframes fly {
+            0% { left: -200px; top: 60px; }
+            50% { top: 80px; }
+            100% { left: 110%; top: 60px; }
         }
     </style>
 </head>
 <body>
     <h1>To Dolly</h1>
+
+    <!-- 這是插畫圖片，請確保它的 URL 是正確的 -->
+    <img class="illustration" src="https://i.imgur.com/0fM6hKZ.jpeg" alt="Illustration of a man in Paris">
+
     <div class="letter">
 我們是在妳離開前才認識的，
 那時候，我沒想到一段關係
@@ -67,5 +110,9 @@ Adventure brings you home
 等著那個載著夢想與回憶的妳
 回來。
     </div>
+
+    <!-- 這些是巴黎鐵塔和飛機圖片 -->
+    <img src="https://i.imgur.com/Yjqq9Fe.png" alt="Eiffel Tower" class="eiffel">
+    <img src="https://i.imgur.com/1TPb06Q.png" alt="Plane" class="plane">
 </body>
 </html>
