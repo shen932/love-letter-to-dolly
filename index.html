@@ -121,19 +121,20 @@
         }
 
         .choices button {
-            font-size: 22px;
-            padding: 10px 30px;
-            margin: 10px;
-            border-radius: 10px;
+            font-size: 32px;         /* 按鈕文字變大 */
+            padding: 18px 60px;      /* 按鈕整體變大 */
+            margin: 20px;
+            border-radius: 14px;
             border: none;
             background-color: #f48fb1;
             color: white;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
         .choices button:hover {
             background-color: #ec407a;
+            transform: scale(1.05);  /* 點擊時微微放大 */
         }
 
         @keyframes fadeIn {
