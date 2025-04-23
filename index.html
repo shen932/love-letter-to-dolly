@@ -145,10 +145,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .fade-in {
-            animation: fadeIn 1.5s ease forwards;
-        }
-
         .heart {
             position: fixed;
             top: -50px;
@@ -193,7 +189,11 @@
     </style>
 </head>
 <body>
+    <!-- 預載入背景圖片 -->
     <img src="4C39901F-2AD0-446B-9950-A3908910A6EA.png" style="display: none;" alt="preload" />
+
+    <!-- 音樂 -->
+    <audio id="bgMusic" src="上面好久不見.mp3" preload="auto"></audio>
 
     <div class="envelope-wrapper">
         <div class="envelope" onclick="openEnvelope()" id="envelope">
@@ -264,12 +264,19 @@
     <script>
         function openEnvelope() {
             const envelope = document.getElementById('envelope');
+            if (envelope.classList.contains('opened')) return;
             envelope.classList.add('opened');
 
+            // 播放背景音樂
+            const music = document.getElementById('bgMusic');
+            music.play();
+
+            // 延遲顯示信內容
             setTimeout(() => {
                 document.querySelector('.envelope-wrapper').style.display = 'none';
                 document.getElementById('mainTitle').style.display = 'block';
                 document.getElementById('letterContent').style.display = 'block';
+                document.getElementById('choices').style.display = 'block';
                 typeLetter();
             }, 1000);
         }
@@ -285,10 +292,6 @@
                     letterContent.innerHTML += text.charAt(i);
                     i++;
                     setTimeout(addCharacter, 60);
-                } else {
-                    const choices = document.getElementById('choices');
-                    choices.style.display = 'block';
-                    choices.classList.add('fade-in');
                 }
             }
 
