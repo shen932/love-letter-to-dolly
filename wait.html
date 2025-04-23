@@ -9,7 +9,7 @@
         body {
             margin: 0;
             padding: 0;
-            background: linear-gradient(to bottom, #ff7eb9, #ff65a3);
+            background: linear-gradient(to bottom right, #d0c6ff, #ffc1e3);
             font-family: 'jf-openhuninn', 'Dancing Script', cursive, sans-serif;
             color: #4b2e2e;
             line-height: 2;
@@ -29,13 +29,34 @@
             max-width: 750px;
             margin: 40px auto;
             padding: 40px;
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.85);
             border-radius: 20px;
             font-size: 26px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             white-space: pre-wrap;
             text-align: center;
             color: #333;
+        }
+
+        .choices {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .choices button {
+            font-size: 22px;
+            padding: 10px 30px;
+            margin: 10px;
+            border-radius: 10px;
+            border: none;
+            background-color: #f48fb1;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .choices button:hover {
+            background-color: #ec407a;
         }
 
         .heart {
@@ -61,37 +82,17 @@
                 opacity: 0;
             }
         }
-
-        .choices {
-            text-align: center;
-            margin-top: 30px;
-        }
-
-        .choices button {
-            font-size: 22px;
-            padding: 10px 30px;
-            margin: 10px;
-            border-radius: 10px;
-            border: none;
-            background-color: #f48fb1;
-            color: white;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .choices button:hover {
-            background-color: #ec407a;
-        }
     </style>
 </head>
 <body>
     <h1>再想想</h1>
     <div class="letter">
-        我看有人現在是在調皮吧
-        真是欠扁👊👊👊
-        沒關係
-        貼心的我下面還有個按鈕
-        殼以再按一次
+    我看有人現在是在調皮吧
+    欠扁👊👊👊
+    沒關係
+    貼心的我下面還有選項
+    讓你再選一次
+    
     </div>
     <div class="choices">
         <button onclick="location.href='yes.html'">我願意</button>
@@ -99,21 +100,18 @@
     </div>
 
     <script>
-        // 創建愛心
+        // 愛心飄落動畫
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart');
-            heart.style.left = Math.random() * 100 + 'vw'; // 隨機生成左右位置
-            heart.style.animationDuration = (5 + Math.random() * 5) + 's'; // 隨機速度
+            heart.textContent = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (5 + Math.random() * 5) + 's';
             document.body.appendChild(heart);
-
-            // 設置超過時間後刪除愛心
             setTimeout(() => {
                 heart.remove();
             }, 10000);
         }
-
-        // 每0.5秒創建一個愛心
         setInterval(createHeart, 500);
     </script>
 </body>
