@@ -124,8 +124,8 @@
         }
 
         .choices button {
-            font-size: 32px;         /* 按鈕文字變大 */
-            padding: 18px 60px;      /* 按鈕整體變大 */
+            font-size: 32px;
+            padding: 18px 60px;
             margin: 20px;
             border-radius: 14px;
             border: none;
@@ -137,12 +137,16 @@
 
         .choices button:hover {
             background-color: #ec407a;
-            transform: scale(1.05);  /* 點擊時微微放大 */
+            transform: scale(1.05);
         }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 1.5s ease forwards;
         }
 
         .heart {
@@ -189,7 +193,6 @@
     </style>
 </head>
 <body>
-    <!-- 預載入背景圖片 -->
     <img src="4C39901F-2AD0-446B-9950-A3908910A6EA.png" style="display: none;" alt="preload" />
 
     <div class="envelope-wrapper">
@@ -263,17 +266,14 @@
             const envelope = document.getElementById('envelope');
             envelope.classList.add('opened');
 
-            // 延遲顯示信內容
             setTimeout(() => {
                 document.querySelector('.envelope-wrapper').style.display = 'none';
                 document.getElementById('mainTitle').style.display = 'block';
                 document.getElementById('letterContent').style.display = 'block';
-                document.getElementById('choices').style.display = 'block';
                 typeLetter();
             }, 1000);
         }
 
-        // 逐字顯示信件
         function typeLetter() {
             const letterContent = document.getElementById('letterContent');
             let i = 0;
@@ -285,6 +285,10 @@
                     letterContent.innerHTML += text.charAt(i);
                     i++;
                     setTimeout(addCharacter, 60);
+                } else {
+                    const choices = document.getElementById('choices');
+                    choices.style.display = 'block';
+                    choices.classList.add('fade-in');
                 }
             }
 
