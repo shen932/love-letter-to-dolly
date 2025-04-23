@@ -2,40 +2,39 @@
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <title>再想想</title>
+    <title>Wait - To Dolly</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Pacifico&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/gh/justfont/webfonts@master/huninn/style.css" rel="stylesheet">
     <style>
         body {
             margin: 0;
             padding: 0;
-            background: linear-gradient(to bottom right, #d0c6ff, #ffc1e3);
+            background: linear-gradient(to bottom, #e0f7fa, #f48fb1);
             font-family: 'jf-openhuninn', 'Dancing Script', cursive, sans-serif;
             color: #4b2e2e;
             line-height: 2;
-            overflow: hidden;
+            overflow: auto;
+            min-height: 100vh;
         }
 
         h1 {
             font-family: 'Pacifico', cursive;
             font-size: 60px;
             text-align: center;
-            color: #fff;
+            color: #C2185B;
             margin-top: 50px;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
         }
 
         .letter {
             max-width: 750px;
             margin: 40px auto;
             padding: 40px;
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.9);
             border-radius: 20px;
             font-size: 26px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             white-space: pre-wrap;
-            text-align: center;
-            color: #333;
         }
 
         .choices {
@@ -59,59 +58,74 @@
             background-color: #ec407a;
         }
 
+        /* 愛心動畫 */
         .heart {
-            position: absolute;
+            position: fixed;
             top: -50px;
-            z-index: 999;
-            font-size: 30px;
-            color: #FF4081;
-            animation: fall 5s linear infinite;
+            width: 20px;
+            height: 20px;
+            background-color: #ff7eb9;
+            transform: rotate(45deg);
+            animation: fall 10s linear infinite;
+            opacity: 0.8;
+            z-index: 1;
         }
-
+        .heart::before, .heart::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #ff7eb9;
+            border-radius: 50%;
+        }
+        .heart::before {
+            top: -10px;
+            left: 0;
+        }
+        .heart::after {
+            left: -10px;
+            top: 0;
+        }
         @keyframes fall {
             0% {
-                transform: translateY(0) rotate(45deg) scale(1);
+                transform: translateY(0) rotate(45deg);
                 opacity: 1;
             }
-            50% {
-                transform: translateY(50vh) rotate(180deg) scale(1.5);
-                opacity: 0.8;
-            }
             100% {
-                transform: translateY(100vh) rotate(360deg) scale(1);
+                transform: translateY(100vh) rotate(45deg);
                 opacity: 0;
             }
         }
     </style>
 </head>
 <body>
-    <h1>再想想</h1>
+    <h1>Wait - To Dolly</h1>
     <div class="letter">
-    我看有人現在是在調皮吧
-    欠扁👊👊👊
-    沒關係
-    貼心的我下面還有選項
-    讓你再選一次
-    
+        我看有人現在是在調皮吧
+        欠扁👊👊👊👊
+        還好我蠻貼心的
+        下面還可以讓你再選一次
+        
+        
     </div>
     <div class="choices">
-        <button onclick="location.href='yes.html'">我願意</button>
-        <button onclick="location.href='index.html'">回到首頁</button>
+        <button onclick="location.href='index.html'">返回</button>
     </div>
 
+    <!-- 愛心飄落動畫 -->
     <script>
-        // 愛心飄落動畫
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart');
-            heart.textContent = '❤️';
             heart.style.left = Math.random() * 100 + 'vw';
             heart.style.animationDuration = (5 + Math.random() * 5) + 's';
             document.body.appendChild(heart);
+
             setTimeout(() => {
                 heart.remove();
             }, 10000);
         }
+
         setInterval(createHeart, 500);
     </script>
 </body>
