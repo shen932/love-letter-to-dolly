@@ -113,6 +113,17 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             white-space: pre-wrap;
             color: #4b2e2e;
+            position: relative;
+            z-index: 2;
+        }
+
+        .letter.with-background {
+            background-image: url('4C39901F-2AD0-446B-9950-A3908910A6EA.png');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-blend-mode: lighten;
+            background-color: rgba(255, 255, 255, 0.9);
         }
 
         .choices {
@@ -121,8 +132,8 @@
         }
 
         .choices button {
-            font-size: 32px;         /* 按鈕文字變大 */
-            padding: 18px 60px;      /* 按鈕整體變大 */
+            font-size: 32px;
+            padding: 18px 60px;
             margin: 20px;
             border-radius: 14px;
             border: none;
@@ -134,7 +145,7 @@
 
         .choices button:hover {
             background-color: #ec407a;
-            transform: scale(1.05);  /* 點擊時微微放大 */
+            transform: scale(1.05);
         }
 
         @keyframes fadeIn {
@@ -256,11 +267,14 @@
             const envelope = document.getElementById('envelope');
             envelope.classList.add('opened');
 
-            // 延遲顯示信內容
             setTimeout(() => {
                 document.querySelector('.envelope-wrapper').style.display = 'none';
+
+                const letter = document.getElementById('letterContent');
+                letter.classList.add('with-background');
+
                 document.getElementById('mainTitle').style.display = 'block';
-                document.getElementById('letterContent').style.display = 'block';
+                letter.style.display = 'block';
                 document.getElementById('choices').style.display = 'block';
             }, 1000);
         }
