@@ -1,290 +1,286 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8" />
-  <title>To Dolly</title>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Pacifico&display=swap" rel="stylesheet" />
-  <link href="https://cdn.jsdelivr.net/gh/justfont/webfonts@master/huninn/style.css" rel="stylesheet" />
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <title>To Dolly</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/justfont/webfonts@master/huninn/style.css" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-    body {
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(to bottom, #e0f7fa, #f48fb1);
-      font-family: 'jf-openhuninn', 'Dancing Script', cursive, sans-serif;
-      overflow-x: hidden;
-      min-height: 100vh;
-    }
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #e0f7fa, #f48fb1);
+            font-family: 'jf-openhuninn', 'Dancing Script', cursive, sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
 
-    .envelope-wrapper {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
+        .envelope-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
 
-    .envelope {
-      position: relative;
-      width: 350px;
-      height: 250px;
-      background: #fff;
-      border: 3px solid #ff7eb9;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    }
+        .envelope {
+            position: relative;
+            width: 350px;
+            height: 250px;
+            background: #fff;
+            border: 3px solid #ff7eb9;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
 
-    .flap {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 50%;
-      background: #ff7eb9;
-      clip-path: polygon(0 0, 100% 0, 50% 100%);
-      transform-origin: top center;
-      transition: transform 0.6s ease;
-    }
+        .flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: #ff7eb9;
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            transform-origin: top center;
+            transition: transform 0.6s ease;
+        }
 
-    .letter-sheet {
-      position: absolute;
-      top: 20%;
-      left: 10%;
-      width: 80%;
-      height: 60%;
-      background: #fff;
-      border-radius: 5px;
-      opacity: 0;
-      transform: translateY(40px);
-      transition: all 0.8s ease;
-    }
+        .letter-sheet {
+            position: absolute;
+            top: 20%;
+            left: 10%;
+            width: 80%;
+            height: 60%;
+            background: #fff;
+            border-radius: 5px;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease;
+        }
 
-    .opened .flap {
-      transform: rotateX(-120deg);
-    }
+        .opened .flap {
+            transform: rotateX(-120deg);
+        }
 
-    .opened .letter-sheet {
-      opacity: 1;
-      transform: translateY(0);
-    }
+        .opened .letter-sheet {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-    .name-label {
-      position: absolute;
-      bottom: 10px;
-      right: 15px;
-      font-size: 22px;
-      font-family: 'Pacifico', cursive;
-      color: #C2185B;
-    }
+        .name-label {
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
+            font-size: 22px;
+            font-family: 'Pacifico', cursive;
+            color: #C2185B;
+        }
 
-    .heart-sticker {
-      position: absolute;
-      top: 8px;
-      left: 10px;
-      font-size: 24px;
-      color: #f06292;
-      transform: rotate(-20deg);
-    }
+        .heart-sticker {
+            position: absolute;
+            top: 8px;
+            left: 10px;
+            font-size: 24px;
+            color: #f06292;
+            transform: rotate(-20deg);
+        }
 
-    h1, .letter, .choices {
-      display: none;
-      animation: fadeIn 1s ease forwards;
-    }
+        h1, .letter, .choices {
+            display: none;
+            animation: fadeIn 1s ease forwards;
+        }
 
-    h1 {
-      font-family: 'Pacifico', cursive;
-      font-size: 60px;
-      text-align: center;
-      color: #C2185B;
-      margin-top: 30px;
-    }
+        h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 60px;
+            text-align: center;
+            color: #C2185B;
+            margin-top: 30px;
+        }
 
-    .letter {
-      max-width: 750px;
-      margin: 40px auto;
-      padding: 40px;
-      background: rgba(255, 255, 255, 0.92);
-      background-image: url('4C39901F-2AD0-446B-9950-A3908910A6EA.png');
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
-      border-radius: 20px;
-      font-size: 26px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      white-space: pre-wrap;
-      color: #4b2e2e;
-    }
+        .letter {
+            max-width: 750px;
+            margin: 40px auto;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            font-size: 26px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            white-space: pre-wrap;
+            color: #4b2e2e;
+            background-image: url('4C39901F-2AD0-446B-9950-A3908910A6EA.png');
+            background-size: cover;
+            background-position: center;
+        }
 
-    .choices {
-      text-align: center;
-      margin-top: 30px;
-    }
+        .choices {
+            text-align: center;
+            margin-top: 30px;
+        }
 
-    .choices button {
-      font-size: 32px;
-      padding: 18px 60px;
-      margin: 20px;
-      border-radius: 14px;
-      border: none;
-      background-color: #f48fb1;
-      color: white;
-      cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.2s ease;
-    }
+        .choices button {
+            font-size: 32px;         /* 按鈕文字變大 */
+            padding: 18px 60px;      /* 按鈕整體變大 */
+            margin: 20px;
+            border-radius: 14px;
+            border: none;
+            background-color: #f48fb1;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
 
-    .choices button:hover {
-      background-color: #ec407a;
-      transform: scale(1.05);
-    }
+        .choices button:hover {
+            background-color: #ec407a;
+            transform: scale(1.05);  /* 點擊時微微放大 */
+        }
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-    .heart {
-      position: fixed;
-      top: -50px;
-      width: 20px;
-      height: 20px;
-      background-color: #ff7eb9;
-      transform: rotate(45deg);
-      animation: fall 10s linear infinite;
-      opacity: 0.8;
-      z-index: 1;
-    }
+        .heart {
+            position: fixed;
+            top: -50px;
+            width: 20px;
+            height: 20px;
+            background-color: #ff7eb9;
+            transform: rotate(45deg);
+            animation: fall 10s linear infinite;
+            opacity: 0.8;
+            z-index: 1;
+        }
 
-    .heart::before,
-    .heart::after {
-      content: "";
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background-color: #ff7eb9;
-      border-radius: 50%;
-    }
+        .heart::before, .heart::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #ff7eb9;
+            border-radius: 50%;
+        }
 
-    .heart::before {
-      top: -10px;
-      left: 0;
-    }
+        .heart::before {
+            top: -10px;
+            left: 0;
+        }
 
-    .heart::after {
-      left: -10px;
-      top: 0;
-    }
+        .heart::after {
+            left: -10px;
+            top: 0;
+        }
 
-    @keyframes fall {
-      0% {
-        transform: translateY(0) rotate(45deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(100vh) rotate(45deg);
-        opacity: 0;
-      }
-    }
-  </style>
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(45deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(45deg);
+                opacity: 0;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="envelope-wrapper">
-    <div class="envelope" onclick="openEnvelope()" id="envelope">
-      <div class="flap"></div>
-      <div class="letter-sheet"></div>
-      <div class="name-label">To Dolly</div>
-      <div class="heart-sticker">♥</div>
+    <!-- 預載入背景圖片 -->
+    <img src="4C39901F-2AD0-446B-9950-A3908910A6EA.png" style="display: none;" alt="preload" />
+
+    <div class="envelope-wrapper">
+        <div class="envelope" onclick="openEnvelope()" id="envelope">
+            <div class="flap"></div>
+            <div class="letter-sheet"></div>
+            <div class="name-label">To Dolly</div>
+            <div class="heart-sticker">♥</div>
+        </div>
     </div>
-  </div>
 
-  <h1 id="mainTitle">To Dolly</h1>
+    <h1 id="mainTitle">To Dolly</h1>
 
-  <div class="letter" id="letterContent">
-原本想說要用寫的比較有感覺  
-但我怕我字太醜 你會嫌棄我  
-所以就用了這個  
-但我也是第一次用  
-也不知道做起來會怎樣  
-更不知道你看到的時候是什麼樣的心情  
-好了 接下來是我想說的  
+    <div class="letter" id="letterContent">
+        原本想說要用寫的比較有感覺  
+        但我怕我字太醜 你會嫌棄我  
+        所以就用了這個  
+        但我也是第一次用  
+        也不知道做起來會怎樣  
+        更不知道你看到的時候是什麼樣的心情  
+        好了 接下來是我想說的  
 
-我們是在妳離開前才認識的，  
-那時候，我沒想到一段關係  
-會在妳離開後悄悄開始，  
-也沒想到，在這段距離裡，  
-我會一直默默地期待妳回來的那一天。  
+        我們是在妳離開前才認識的，  
+        那時候，我沒想到一段關係  
+        會在妳離開後悄悄開始，  
+        也沒想到，在這段距離裡，  
+        我會一直默默地期待妳回來的那一天。  
 
-妳在法國的日子裡，雖然我們身處兩地，  
-但每次妳分享的故事、回憶和感受，  
-我彷彿也跟著妳一起走過那段旅程。  
-這些時光讓我感覺，不僅是妳在冒險，  
-我也在與妳一起探索世界。  
+        妳在法國的日子裡，雖然我們身處兩地，  
+        但每次妳分享的故事、回憶和感受，  
+        我彷彿也跟著妳一起走過那段旅程。  
+        這些時光讓我感覺，不僅是妳在冒險，  
+        我也在與妳一起探索世界。  
 
-妳的冒險帶著夢想與回憶，  
-像那幅畫中的氣球，  
-承載著妳的故事與成長。  
-它飛得很高，背負著旅程的重量，  
-最後，妳回到了家，回到最熟悉的地方。  
+        妳的冒險帶著夢想與回憶，  
+        像那幅畫中的氣球，  
+        承載著妳的故事與成長。  
+        它飛得很高，背負著旅程的重量，  
+        最後，妳回到了家，回到最熟悉的地方。  
 
-我們的連結，就像那棟  
-被無數氣球牽引的房子——  
-輕盈卻穩定，漂浮卻從未斷線。  
-每天的訊息和通話，讓我們的生活不再遙遠，  
-也讓我們習慣了彼此的存在，  
-不知不覺成了對方日常的一部分。  
+        我們的連結，就像那棟  
+        被無數氣球牽引的房子——  
+        輕盈卻穩定，漂浮卻從未斷線。  
+        每天的訊息和通話，讓我們的生活不再遙遠，  
+        也讓我們習慣了彼此的存在，  
+        不知不覺成了對方日常的一部分。  
 
-所以我想把這句話放在這裡：  
+        所以我想把這句話放在這裡：  
 
-**Adventure brings you home**  
+        **Adventure brings you home**  
 
-妳回來了，帶著遠方經歷的一切，  
-也帶著那個更成熟、更自由的妳。  
-我不知道妳最終想停下來的地方會是哪裡，  
-但我知道，我想成為那個地方。  
-如果妳願意，  
-這一次，我不只是想等妳回來——  
-  我想陪妳走下去。  
+        妳回來了，帶著遠方經歷的一切，  
+        也帶著那個更成熟、更自由的妳。  
+        我不知道妳最終想停下來的地方會是哪裡，  
+        但我知道，我想成為那個地方。  
+        如果妳願意，  
+        這一次，我不只是想等妳回來——  
+          我想陪妳走下去。  
 
-                  **Shen Ching**
-  </div>
+                          **Shen Ching**
+    </div>
 
-  <div class="choices" id="choices">
-    <button onclick="location.href='yes.html'">我願意</button>
-    <button onclick="location.href='wait.html'">再想想</button>
-  </div>
+    <div class="choices" id="choices">
+        <button onclick="location.href='yes.html'">我願意</button>
+        <button onclick="location.href='wait.html'">再想想</button>
+    </div>
 
-  <script>
-    function openEnvelope() {
-      const envelope = document.getElementById('envelope');
-      envelope.classList.add('opened');
+    <script>
+        function openEnvelope() {
+            const envelope = document.getElementById('envelope');
+            envelope.classList.add('opened');
 
-      setTimeout(() => {
-        document.querySelector('.envelope-wrapper').style.display = 'none';
-        document.getElementById('mainTitle').style.display = 'block';
-        document.getElementById('letterContent').style.display = 'block';
-        document.getElementById('choices').style.display = 'block';
-      }, 1000);
-    }
+            // 延遲顯示信內容
+            setTimeout(() => {
+                document.querySelector('.envelope-wrapper').style.display = 'none';
+                document.getElementById('mainTitle').style.display = 'block';
+                document.getElementById('letterContent').style.display = 'block';
+                document.getElementById('choices').style.display = 'block';
+            }, 1000);
+        }
 
-    function createHeart() {
-      const heart = document.createElement('div');
-      heart.classList.add('heart');
-      heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.animationDuration = (5 + Math.random() * 5) + 's';
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 10000);
-    }
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (5 + Math.random() * 5) + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 10000);
+        }
 
-    setInterval(createHeart, 500);
-  </script>
+        setInterval(createHeart, 500);
+    </script>
 </body>
 </html>
