@@ -107,35 +107,6 @@
             0% { transform: translateY(0) rotate(45deg); opacity: 1; }
             100% { transform: translateY(100vh) rotate(45deg); opacity: 0; }
         }
-
-        .blessing {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 40px;
-            border-radius: 15px;
-            font-size: 28px;
-            font-family: 'Pacifico', cursive;
-            text-align: center;
-            color: #C2185B;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            z-index: 10;
-            animation: fadeIn 1s ease-out;
-        }
-
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(0.5);
-            }
-            100% {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1);
-            }
-        }
     </style>
 </head>
 <body>
@@ -150,11 +121,6 @@
     </div>
     <div class="choices">
         <button id="yesButton">我願意</button>
-    </div>
-
-    <!-- 祝福字卡 -->
-    <div class="blessing">
-        祝福我們的未來永遠美好，手牽手，一起走過每一天！💖
     </div>
 
     <script>
@@ -256,14 +222,17 @@
 
         animateFireworks();
 
-        // 按下我願意觸發煙火動畫、顯示祝福字卡並延遲跳轉
+        // 按下我願意觸發煙火動畫並延遲跳轉
         document.getElementById('yesButton').addEventListener('click', () => {
-            // 顯示祝福字卡
-            document.querySelector('.blessing').style.display = 'block';
-
             // 觸發煙火
             for (let i = 0; i < 10; i++) {
                 fireworks.push(new Firework());
             }
-
-            // 延遲3
+            // 延遲3秒後跳轉
+            setTimeout(() => {
+                window.location.href = 'yes.html'; // 這裡是你想要導向的頁面
+            }, 3000); // 3秒後跳轉
+        });
+    </script>
+</body>
+</html>
