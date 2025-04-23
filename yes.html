@@ -2,46 +2,129 @@
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <title>Yes!</title>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <title>Yes - To Dolly</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Pacifico&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/gh/justfont/webfonts@master/huninn/style.css" rel="stylesheet">
     <style>
         body {
             margin: 0;
             padding: 0;
-            background: linear-gradient(to bottom right, #fbc2eb, #a6c1ee);
-            font-family: 'jf-openhuninn', 'Pacifico', cursive, sans-serif;
+            background: linear-gradient(to bottom, #e0f7fa, #f48fb1);
+            font-family: 'jf-openhuninn', 'Dancing Script', cursive, sans-serif;
             color: #4b2e2e;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            text-align: center;
+            line-height: 2;
+            overflow: auto; /* 確保可以滾動 */
+            min-height: 100vh; /* 確保頁面高度至少為視窗高度 */
         }
 
-        .message {
-            background: rgba(255, 255, 255, 0.85);
-            padding: 50px;
-            border-radius: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            font-size: 28px;
-        }
-
-        .heart {
+        h1 {
+            font-family: 'Pacifico', cursive;
             font-size: 60px;
-            margin-bottom: 20px;
+            text-align: center;
+            color: #C2185B;
+            margin-top: 50px;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+        }
+
+        .letter {
+            max-width: 750px;
+            margin: 40px auto;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            font-size: 26px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            white-space: pre-wrap;
+        }
+
+        .choices {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .choices button {
+            font-size: 22px;
+            padding: 10px 30px;
+            margin: 10px;
+            border-radius: 10px;
+            border: none;
+            background-color: #f48fb1;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .choices button:hover {
+            background-color: #ec407a;
+        }
+
+        /* 愛心動畫 */
+        .heart {
+            position: fixed;
+            top: -50px;
+            width: 20px;
+            height: 20px;
+            background-color: #ff7eb9;
+            transform: rotate(45deg);
+            animation: fall 10s linear infinite;
+            opacity: 0.8;
+            z-index: 1;
+        }
+        .heart::before, .heart::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #ff7eb9;
+            border-radius: 50%;
+        }
+        .heart::before {
+            top: -10px;
+            left: 0;
+        }
+        .heart::after {
+            left: -10px;
+            top: 0;
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(45deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(45deg);
+                opacity: 0;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="message">
-        <div class="heart">💜</div>
-        我很開心你願意回應我的心意！
-        這是我們故事的開始
-        也是新的篇章
-        謝謝你願意與我攜手前行
-        <br><br>
-        **那今天就是我們在一起的第一天。**
+    <h1>Yes! To Dolly</h1>
+    <div class="letter">
+        我很開心妳願意回應我的心意！  
+        接下來，我們一起走向未來，一起共度每一個冒險的日子。  
+        這是我們故事的開始，也是一個新的篇章。  
+        那今天就是我們在一起的第一天💜 
     </div>
+    <div class="choices">
+        <button onclick="location.href='index.html'">返回</button>
+    </div>
+
+    <!-- 愛心飄落動畫 -->
+    <script>
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (5 + Math.random() * 5) + 's';
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 10000);
+        }
+
+        setInterval(createHeart, 500);
+    </script>
 </body>
 </html>
