@@ -276,7 +276,6 @@
                 document.querySelector('.envelope-wrapper').style.display = 'none';
                 document.getElementById('mainTitle').style.display = 'block';
                 document.getElementById('letterContent').style.display = 'block';
-                document.getElementById('choices').style.display = 'block';
                 typeLetter();
             }, 1000);
         }
@@ -292,6 +291,9 @@
                     letterContent.innerHTML += text.charAt(i);
                     i++;
                     setTimeout(addCharacter, 60);
+                } else {
+                    // 當信件完全顯示完後，再顯示按鈕
+                    document.getElementById('choices').style.display = 'block';
                 }
             }
 
