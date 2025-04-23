@@ -3,18 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>To Dolly</title>
-    <!-- 英文手寫字體 -->
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Pacifico&display=swap" rel="stylesheet">
-    <!-- 中文手寫字體 -->
     <link href="https://cdn.jsdelivr.net/gh/justfont/webfonts@master/huninn/style.css" rel="stylesheet">
     <style>
         body {
             margin: 0;
             padding: 0;
-            background: linear-gradient(to bottom right, #fbc2eb, #a6c1ee); /* 柔和紫藍漸層 */
+            background: linear-gradient(to bottom, #e0f7fa, #f48fb1);
             font-family: 'jf-openhuninn', 'Dancing Script', cursive, sans-serif;
             color: #4b2e2e;
             line-height: 2;
+            overflow: hidden; /* 防止頁面滾動 */
         }
 
         h1 {
@@ -30,8 +29,7 @@
             max-width: 750px;
             margin: 40px auto;
             padding: 40px;
-            background: rgba(255, 255, 255, 0.9) url('https://www.transparenttextures.com/patterns/circles.png'); /* 加入背景圖案 */
-            background-size: cover;
+            background: rgba(255, 255, 255, 0.9);
             border-radius: 20px;
             font-size: 26px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -57,6 +55,45 @@
 
         .choices button:hover {
             background-color: #ec407a;
+        }
+
+        /* 愛心動畫 */
+        .heart {
+            position: fixed;
+            top: -50px;
+            width: 20px;
+            height: 20px;
+            background-color: #ff7eb9;
+            transform: rotate(45deg);
+            animation: fall 10s linear infinite;
+            opacity: 0.8;
+            z-index: 1;
+        }
+        .heart::before, .heart::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #ff7eb9;
+            border-radius: 50%;
+        }
+        .heart::before {
+            top: -10px;
+            left: 0;
+        }
+        .heart::after {
+            left: -10px;
+            top: 0;
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(45deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(45deg);
+                opacity: 0;
+            }
         }
     </style>
 </head>
@@ -114,5 +151,22 @@
         <button onclick="location.href='yes.html'">我願意</button>
         <button onclick="location.href='wait.html'">再想想</button>
     </div>
+
+    <!-- 愛心飄落動畫 -->
+    <script>
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (5 + Math.random() * 5) + 's';
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 10000);
+        }
+
+        setInterval(createHeart, 500);
+    </script>
 </body>
 </html>
