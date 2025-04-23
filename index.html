@@ -113,12 +113,15 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             white-space: pre-wrap;
             color: #4b2e2e;
+            background-image: url('4C39901F-2AD0-446B-9950-A3908910A6EA.png');
+            background-size: cover;
+            background-position: center;
         }
 
         .choices {
             text-align: center;
             margin-top: 30px;
-            display: none;  /* 按鈕初始隱藏 */
+            display: none;
         }
 
         .choices button {
@@ -187,6 +190,8 @@
     </style>
 </head>
 <body>
+    <img src="4C39901F-2AD0-446B-9950-A3908910A6EA.png" style="display: none;" alt="preload" />
+
     <div class="envelope-wrapper">
         <div class="envelope" onclick="openEnvelope()" id="envelope">
             <div class="flap"></div>
@@ -199,7 +204,16 @@
     <h1 id="mainTitle">To Dolly</h1>
 
     <div class="letter" id="letterContent">
-        原本想說要用寫的比較有感覺  
+        <p id="content"></p>
+    </div>
+
+    <div class="choices" id="choices">
+        <button onclick="location.href='yes.html'">我願意</button>
+        <button onclick="location.href='wait.html'">再想想</button>
+    </div>
+
+    <script>
+        const letterText = `原本想說要用寫的比較有感覺  
         但我怕我字太醜 你會嫌棄我  
         所以就用了這個  
         但我也是第一次用  
@@ -236,39 +250,33 @@
 
         **Adventure brings you home**  
 
-        妳回來了，帶著遠方經歷的一切，  
-        也帶著那個更成熟、更自由的妳。  
-        我不知道妳最終想停下來的地方會是哪裡，  
-        但我知道，我想成為那個地方。  
-        如果妳願意，  
-        這一次，我不只是想等妳回來——  
-          我想陪妳走下去。  
+        妳回來了，帶著遠方經歷的一切，`;
 
-                          **Shen Ching**
-    </div>
+        let i = 0;
+        const speed = 50; // 控制字母顯示速度
 
-    <div class="choices" id="choices">
-        <button onclick="location.href='yes.html'">我願意</button>
-        <button onclick="location.href='wait.html'">再想想</button>
-    </div>
+        function typeWriter() {
+            if (i < letterText.length) {
+                document.getElementById("content").innerHTML += letterText.charAt(i);
+                i++;
+                setTimeout(typeWriter, speed);
+            } else {
+                document.getElementById("choices").style.display = "block";  // 顯示按鈕
+            }
+        }
 
-    <script>
         function openEnvelope() {
             const envelope = document.getElementById('envelope');
             envelope.classList.add('opened');
-
-            // 延遲顯示信內容
             setTimeout(() => {
                 document.querySelector('.envelope-wrapper').style.display = 'none';
                 document.getElementById('mainTitle').style.display = 'block';
                 document.getElementById('letterContent').style.display = 'block';
-
-                // 延遲顯示按鈕
-                setTimeout(() => {
-                    document.getElementById('choices').style.display = 'block';
-                }, 2000);  // 兩秒後顯示按鈕
+                typeWriter(); // 開始打字效果
             }, 1000);
         }
-    </script>
-</body>
-</html>
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.style.left = Math.random() * 
