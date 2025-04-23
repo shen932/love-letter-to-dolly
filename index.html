@@ -72,6 +72,24 @@
             transform: translateY(0);
         }
 
+        .name-label {
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
+            font-size: 22px;
+            font-family: 'Pacifico', cursive;
+            color: #C2185B;
+        }
+
+        .heart-sticker {
+            position: absolute;
+            top: 8px;
+            left: 10px;
+            font-size: 24px;
+            color: #f06292;
+            transform: rotate(-20deg);
+        }
+
         h1, .letter, .choices {
             display: none;
             animation: fadeIn 1s ease forwards;
@@ -171,6 +189,8 @@
         <div class="envelope" onclick="openEnvelope()" id="envelope">
             <div class="flap"></div>
             <div class="letter-sheet"></div>
+            <div class="name-label">To Dolly</div>
+            <div class="heart-sticker">♥</div>
         </div>
     </div>
 
