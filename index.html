@@ -5,6 +5,8 @@
     <title>To Dolly</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Pacifico&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/gh/justfont/webfonts@master/huninn/style.css" rel="stylesheet">
+    <link rel="preload" href="4C39901F-2AD0-446B-9950-A3908910A6EA.png" as="image">
+
     <style>
         * {
             box-sizing: border-box;
@@ -17,6 +19,7 @@
             font-family: 'jf-openhuninn', 'Dancing Script', cursive, sans-serif;
             overflow-x: hidden;
             min-height: 100vh;
+            transition: background-image 1s ease;
         }
 
         .envelope-wrapper {
@@ -107,8 +110,7 @@
             max-width: 750px;
             margin: 40px auto;
             padding: 40px;
-            background: url('4C39901F-2AD0-446B-9950-A3908910A6EA.png') no-repeat center bottom;
-            background-size: cover; /* 確保圖片覆蓋整個區塊 */
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
             font-size: 26px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -122,8 +124,8 @@
         }
 
         .choices button {
-            font-size: 32px;         /* 按鈕文字變大 */
-            padding: 18px 60px;      /* 按鈕整體變大 */
+            font-size: 32px;
+            padding: 18px 60px;
             margin: 20px;
             border-radius: 14px;
             border: none;
@@ -135,7 +137,7 @@
 
         .choices button:hover {
             background-color: #ec407a;
-            transform: scale(1.05);  /* 點擊時微微放大 */
+            transform: scale(1.05);
         }
 
         @keyframes fadeIn {
@@ -253,13 +255,23 @@
     </div>
 
     <script>
+        // 預載入圖片
+        const preloadImg = new Image();
+        preloadImg.src = "4C39901F-2AD0-446B-9950-A3908910A6EA.png";
+
         function openEnvelope() {
             const envelope = document.getElementById('envelope');
             envelope.classList.add('opened');
 
-            // 延遲顯示信內容
             setTimeout(() => {
                 document.querySelector('.envelope-wrapper').style.display = 'none';
+
+                // 套用背景圖
+                document.body.style.backgroundImage = "url('4C39901F-2AD0-446B-9950-A3908910A6EA.png')";
+                document.body.style.backgroundSize = "cover";
+                document.body.style.backgroundPosition = "center center";
+                document.body.style.backgroundRepeat = "no-repeat";
+
                 document.getElementById('mainTitle').style.display = 'block';
                 document.getElementById('letterContent').style.display = 'block';
                 document.getElementById('choices').style.display = 'block';
