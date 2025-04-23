@@ -2,39 +2,64 @@
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <title>Wait - To Dolly</title>
+    <title>再想想</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Pacifico&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/gh/justfont/webfonts@master/huninn/style.css" rel="stylesheet">
     <style>
         body {
             margin: 0;
             padding: 0;
-            background: linear-gradient(to bottom, #e0f7fa, #f48fb1); /* yes的背景顏色 */
+            background: linear-gradient(to bottom, #e0f7fa, #f48fb1); /* 套用yes的顏色 */
             font-family: 'jf-openhuninn', 'Dancing Script', cursive, sans-serif;
             color: #4b2e2e;
             line-height: 2;
-            overflow: auto;
-            min-height: 100vh;
+            overflow: hidden;
         }
 
         h1 {
             font-family: 'Pacifico', cursive;
             font-size: 60px;
             text-align: center;
-            color: #C2185B;
+            color: #fff;
             margin-top: 50px;
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
         }
 
         .letter {
             max-width: 750px;
             margin: 40px auto;
             padding: 40px;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.8);
             border-radius: 20px;
             font-size: 26px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             white-space: pre-wrap;
+            text-align: center;
+            color: #333;
+        }
+
+        .heart {
+            position: absolute;
+            top: -50px;
+            z-index: 999;
+            font-size: 30px;
+            color: #FF4081;
+            animation: fall 5s linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(45deg) scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(50vh) rotate(180deg) scale(1.5);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg) scale(1);
+                opacity: 0;
+            }
         }
 
         .choices {
@@ -57,60 +82,24 @@
         .choices button:hover {
             background-color: #ec407a;
         }
-
-        /* 愛心動畫 */
-        .heart {
-            position: fixed;
-            top: -50px;
-            width: 20px;
-            height: 20px;
-            background-color: #ff7eb9;
-            transform: rotate(45deg);
-            animation: fall 10s linear infinite;
-            opacity: 0.8;
-            z-index: 1;
-        }
-        .heart::before, .heart::after {
-            content: "";
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background-color: #ff7eb9;
-            border-radius: 50%;
-        }
-        .heart::before {
-            top: -10px;
-            left: 0;
-        }
-        .heart::after {
-            left: -10px;
-            top: 0;
-        }
-        @keyframes fall {
-            0% {
-                transform: translateY(0) rotate(45deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(100vh) rotate(45deg);
-                opacity: 0;
-            }
-        }
     </style>
 </head>
 <body>
-    <h1>Wait... To Dolly</h1>
+    <h1>再想想</h1>
     <div class="letter">
         我看有人現在是在調皮吧
-        真是欠扁😡
-        沒關係 
-        貼心的我下面特地還放了按鈕可以再按一次。  
+        真是欠扁😡😡
+        沒關係
+        還好窩滿貼心的
+        下面還殼以再按一次
+        
+    
     </div>
     <div class="choices">
-        <button onclick="location.href='index.html'">返回</button>
+        <button onclick="location.href='yes.html'">我願意</button>
+        <button onclick="location.href='index.html'">回到首頁</button>
     </div>
 
-    <!-- 愛心飄落動畫 -->
     <script>
         function createHeart() {
             const heart = document.createElement('div');
