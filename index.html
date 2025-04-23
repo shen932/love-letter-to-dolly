@@ -107,21 +107,13 @@
             max-width: 750px;
             margin: 40px auto;
             padding: 40px;
-            background: rgba(255, 255, 255, 0.95);
+            background: url('4C39901F-2AD0-446B-9950-A3908910A6EA.png') no-repeat center bottom;
+            background-size: cover; /* 確保圖片覆蓋整個區塊 */
             border-radius: 20px;
             font-size: 26px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             white-space: pre-wrap;
             color: #4b2e2e;
-        }
-
-        .letter-image img {
-            max-width: 90%;
-            border-radius: 16px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 1s ease;
         }
 
         .choices {
@@ -130,8 +122,8 @@
         }
 
         .choices button {
-            font-size: 32px;
-            padding: 18px 60px;
+            font-size: 32px;         /* 按鈕文字變大 */
+            padding: 18px 60px;      /* 按鈕整體變大 */
             margin: 20px;
             border-radius: 14px;
             border: none;
@@ -143,7 +135,7 @@
 
         .choices button:hover {
             background-color: #ec407a;
-            transform: scale(1.05);
+            transform: scale(1.05);  /* 點擊時微微放大 */
         }
 
         @keyframes fadeIn {
@@ -253,10 +245,6 @@
   我想陪妳走下去。  
 
                   **Shen Ching**
-
-        <div class="letter-image" style="text-align: center; margin-top: 40px;">
-            <img src="4C39901F-2AD0-446B-9950-A3908910A6EA.png" alt="Memory Image">
-        </div>
     </div>
 
     <div class="choices" id="choices">
@@ -269,16 +257,12 @@
             const envelope = document.getElementById('envelope');
             envelope.classList.add('opened');
 
+            // 延遲顯示信內容
             setTimeout(() => {
                 document.querySelector('.envelope-wrapper').style.display = 'none';
                 document.getElementById('mainTitle').style.display = 'block';
                 document.getElementById('letterContent').style.display = 'block';
                 document.getElementById('choices').style.display = 'block';
-
-                // 顯示圖片
-                const letterImg = document.querySelector('.letter-image img');
-                letterImg.style.opacity = '1';
-                letterImg.style.transform = 'translateY(0)';
             }, 1000);
         }
 
