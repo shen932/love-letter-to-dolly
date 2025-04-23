@@ -2,42 +2,116 @@
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <title>Wait</title>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <title>再想想</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Pacifico&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/gh/justfont/webfonts@master/huninn/style.css" rel="stylesheet">
     <style>
         body {
             margin: 0;
             padding: 0;
-            background: linear-gradient(to bottom right, #fbc2eb, #a6c1ee);
-            font-family: 'jf-openhuninn', 'Pacifico', cursive, sans-serif;
+            background: linear-gradient(to bottom, #ff7eb9, #ff65a3);
+            font-family: 'jf-openhuninn', 'Dancing Script', cursive, sans-serif;
             color: #4b2e2e;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            text-align: center;
+            line-height: 2;
+            overflow: hidden;
         }
 
-        .message {
-            background: rgba(255, 255, 255, 0.85);
-            padding: 50px;
+        h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 60px;
+            text-align: center;
+            color: #fff;
+            margin-top: 50px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .letter {
+            max-width: 750px;
+            margin: 40px auto;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.8);
             border-radius: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            font-size: 28px;
+            font-size: 26px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            white-space: pre-wrap;
+            text-align: center;
+            color: #333;
         }
 
         .heart {
-            font-size: 60px;
-            margin-bottom: 20px;
+            position: absolute;
+            top: -50px;
+            z-index: 999;
+            font-size: 30px;
+            color: #FF4081;
+            animation: fall 5s linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(45deg) scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(50vh) rotate(180deg) scale(1.5);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg) scale(1);
+                opacity: 0;
+            }
+        }
+
+        .choices {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .choices button {
+            font-size: 22px;
+            padding: 10px 30px;
+            margin: 10px;
+            border-radius: 10px;
+            border: none;
+            background-color: #f48fb1;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .choices button:hover {
+            background-color: #ec407a;
         }
     </style>
 </head>
 <body>
-    <div class="message">
-        <div class="heart">🩷</div>
-        沒關係，我會等妳的答案。<br><br>
-        **就像過去一樣，我願意等。**
+    <h1>再想想</h1>
+    <div class="letter">
+        （我看有人現在是在調皮吧
+          真是欠扁👊👊👊。）
     </div>
+    <div class="choices">
+        <button onclick="location.href='yes.html'">我願意</button>
+        <button onclick="location.href='index.html'">回到首頁</button>
+    </div>
+
+    <script>
+        // 創建愛心
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.style.left = Math.random() * 100 + 'vw'; // 隨機生成左右位置
+            heart.style.animationDuration = (5 + Math.random() * 5) + 's'; // 隨機速度
+            document.body.appendChild(heart);
+
+            // 設置超過時間後刪除愛心
+            setTimeout(() => {
+                heart.remove();
+            }, 10000);
+        }
+
+        // 每0.5秒創建一個愛心
+        setInterval(createHeart, 500);
+    </script>
 </body>
 </html>
