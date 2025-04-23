@@ -120,7 +120,7 @@
         那今天就是我們在一起的第一天💜 
     </div>
     <div class="choices">
-        <button onclick="location.href='index.html'">返回</button>
+        <button id="yesButton">我願意</button>
     </div>
 
     <script>
@@ -221,6 +221,18 @@
         }
 
         animateFireworks();
+
+        // 按下我願意觸發煙火動畫並延遲跳轉
+        document.getElementById('yesButton').addEventListener('click', () => {
+            // 觸發煙火
+            for (let i = 0; i < 10; i++) {
+                fireworks.push(new Firework());
+            }
+            // 延遲3秒後跳轉
+            setTimeout(() => {
+                window.location.href = 'yes.html'; // 這裡是你想要導向的頁面
+            }, 3000); // 3秒後跳轉
+        });
     </script>
 </body>
 </html>
