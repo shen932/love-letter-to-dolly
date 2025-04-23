@@ -9,80 +9,31 @@
         body {
             margin: 0;
             padding: 0;
-            background: linear-gradient(to bottom, #ff7eb9, #ff65a3);
+            background: linear-gradient(to bottom, #e0f7fa, #f48fb1);
             font-family: 'jf-openhuninn', 'Dancing Script', cursive, sans-serif;
             color: #4b2e2e;
             line-height: 2;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
+            overflow: auto; /* 防止頁面滾動 */
         }
 
         h1 {
             font-family: 'Pacifico', cursive;
             font-size: 60px;
             text-align: center;
-            color: #fff;
+            color: #C2185B;
             margin-top: 50px;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
         }
 
         .letter {
             max-width: 750px;
             margin: 40px auto;
             padding: 40px;
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.9);
             border-radius: 20px;
             font-size: 26px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             white-space: pre-wrap;
-            text-align: center;
-            color: #333;
-            opacity: 0; /* Initially hidden */
-            transition: opacity 1s ease;
-        }
-
-        .envelope {
-            position: relative;
-            width: 200px;
-            height: 150px;
-            background-color: #fff;
-            border-radius: 15px;
-            cursor: pointer;
-            transition: transform 0.5s ease;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .envelope:before,
-        .envelope:after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.5s ease;
-        }
-
-        .envelope:before {
-            transform-origin: top;
-            transform: rotateX(0deg);
-        }
-
-        .envelope.open:before {
-            transform: rotateX(180deg);
-        }
-
-        .envelope:after {
-            background-color: #f48fb1;
-            top: 30px;
-            left: 20px;
-            height: 30px;
         }
 
         .choices {
@@ -105,66 +56,117 @@
         .choices button:hover {
             background-color: #ec407a;
         }
+
+        /* 愛心動畫 */
+        .heart {
+            position: fixed;
+            top: -50px;
+            width: 20px;
+            height: 20px;
+            background-color: #ff7eb9;
+            transform: rotate(45deg);
+            animation: fall 10s linear infinite;
+            opacity: 0.8;
+            z-index: 1;
+        }
+        .heart::before, .heart::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #ff7eb9;
+            border-radius: 50%;
+        }
+        .heart::before {
+            top: -10px;
+            left: 0;
+        }
+        .heart::after {
+            left: -10px;
+            top: 0;
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(45deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(45deg);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body>
     <h1>To Dolly</h1>
-
-    <div class="envelope" onclick="openEnvelope()">
-        <!-- 信封 -->
-    </div>
-
     <div class="letter">
-        原本想說要用寫的比較有感覺  
-        但我怕我字太醜 你會嫌棄我  
-        所以就用了這個  
-        但我也是第一次用  
-        也不知道做起來會怎樣  
-        更不知道你看到的時候是什麼樣的心情  
-        好了 接下來是我想說的  
-        我們是在妳離開前才認識的，  
-        那時候，我沒想到一段關係  
-        會在妳離開後悄悄開始，  
-        也沒想到，在這段距離裡，  
-        我會一直默默地期待妳回來的那一天。  
+原本想說要用寫的比較有感覺  
+但我怕我字太醜 你會嫌棄我  
+所以就用了這個  
+但我也是第一次用  
+也不知道做起來會怎樣  
+更不知道你看到的時候是什麼樣的心情  
+好了 接下來是我想說的  
 
-        妳在法國的日子裡，雖然我們身處兩地，  
-        但每次妳分享的故事、回憶和感受，  
-        我彷彿也跟著妳一起走過那段旅程。  
-        這些時光讓我感覺，不僅是妳在冒險，  
-        我也在與妳一起探索世界。  
+我們是在妳離開前才認識的，  
+那時候，我沒想到一段關係  
+會在妳離開後悄悄開始，  
+也沒想到，在這段距離裡，  
+我會一直默默地期待妳回來的那一天。  
 
-        妳的冒險帶著夢想與回憶，  
-        像那幅畫中的氣球，  
-        承載著妳的故事與成長。  
-        它飛得很高，背負著旅程的重量，  
-        最後，妳回到了家，回到最熟悉的地方。  
+妳在法國的日子裡，雖然我們身處兩地，  
+但每次妳分享的故事、回憶和感受，  
+我彷彿也跟著妳一起走過那段旅程。  
+這些時光讓我感覺，不僅是妳在冒險，  
+我也在與妳一起探索世界。  
 
-        **Adventure brings you home**
+妳的冒險帶著夢想與回憶，  
+像那幅畫中的氣球，  
+承載著妳的故事與成長。  
+它飛得很高，背負著旅程的重量，  
+最後，妳回到了家，回到最熟悉的地方。  
 
-        妳回來了，帶著遠方經歷的一切，  
-        也帶著那個更成熟、更自由的妳。  
-        我不知道妳最終想停下來的地方會是哪裡，  
-        但我知道，我想成為那個地方。  
-        如果妳願意，  
-        這一次，我不只是想等妳回來——  
-        我想陪妳走下去。  
+我們的連結，就像那棟  
+被無數氣球牽引的房子——  
+輕盈卻穩定，漂浮卻從未斷線。  
+每天的訊息和通話，讓我們的生活不再遙遠，  
+也讓我們習慣了彼此的存在，  
+不知不覺成了對方日常的一部分。  
 
-        Shen Ching
+所以我想把這句話放在這裡：  
+
+**Adventure brings you home**  
+
+妳回來了，帶著遠方經歷的一切，  
+也帶著那個更成熟、更自由的妳。  
+我不知道妳最終想停下來的地方會是哪裡，  
+但我知道，我想成為那個地方。  
+如果妳願意，  
+這一次，我不只是想等妳回來——  
+  我想陪妳走下去。  
+
+                  **Shen Ching**
     </div>
-
     <div class="choices">
         <button onclick="location.href='yes.html'">我願意</button>
-        <button onclick="location.href='index.html'">回到首頁</button>
+        <button onclick="location.href='wait.html'">再想想</button>
     </div>
 
+    <!-- 愛心飄落動畫 -->
     <script>
-        function openEnvelope() {
-            const envelope = document.querySelector('.envelope');
-            const letter = document.querySelector('.letter');
-            envelope.classList.add('open');
-            letter.style.opacity = 1; // Show letter after envelope opens
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (5 + Math.random() * 5) + 's';
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 10000);
         }
+
+        setInterval(createHeart, 500);
     </script>
 </body>
 </html>
