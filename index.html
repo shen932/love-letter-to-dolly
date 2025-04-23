@@ -121,12 +121,11 @@
         .choices {
             text-align: center;
             margin-top: 30px;
-            display: none;
         }
 
         .choices button {
-            font-size: 32px;
-            padding: 18px 60px;
+            font-size: 32px;         /* 按鈕文字變大 */
+            padding: 18px 60px;      /* 按鈕整體變大 */
             margin: 20px;
             border-radius: 14px;
             border: none;
@@ -138,7 +137,7 @@
 
         .choices button:hover {
             background-color: #ec407a;
-            transform: scale(1.05);
+            transform: scale(1.05);  /* 點擊時微微放大 */
         }
 
         @keyframes fadeIn {
@@ -190,6 +189,7 @@
     </style>
 </head>
 <body>
+    <!-- 預載入背景圖片 -->
     <img src="4C39901F-2AD0-446B-9950-A3908910A6EA.png" style="display: none;" alt="preload" />
 
     <div class="envelope-wrapper">
@@ -204,16 +204,7 @@
     <h1 id="mainTitle">To Dolly</h1>
 
     <div class="letter" id="letterContent">
-        <p id="content"></p>
-    </div>
-
-    <div class="choices" id="choices">
-        <button onclick="location.href='yes.html'">我願意</button>
-        <button onclick="location.href='wait.html'">再想想</button>
-    </div>
-
-    <script>
-        const letterText = `原本想說要用寫的比較有感覺  
+        原本想說要用寫的比較有感覺  
         但我怕我字太醜 你會嫌棄我  
         所以就用了這個  
         但我也是第一次用  
@@ -250,33 +241,65 @@
 
         **Adventure brings you home**  
 
-        妳回來了，帶著遠方經歷的一切，`;
+        妳回來了，帶著遠方經歷的一切，  
+        也帶著那個更成熟、更自由的妳。  
+        我不知道妳最終想停下來的地方會是哪裡，  
+        但我知道，我想成為那個地方。  
+        如果妳願意，  
+        這一次，我不只是想等妳回來——  
+          我想陪妳走下去。  
 
-        let i = 0;
-        const speed = 50; // 控制字母顯示速度
+                          **Shen Ching**
+    </div>
 
-        function typeWriter() {
-            if (i < letterText.length) {
-                document.getElementById("content").innerHTML += letterText.charAt(i);
-                i++;
-                setTimeout(typeWriter, speed);
-            } else {
-                document.getElementById("choices").style.display = "block";  // 顯示按鈕
-            }
-        }
+    <div class="choices" id="choices">
+        <button onclick="location.href='yes.html'">我願意</button>
+        <button onclick="location.href='wait.html'">再想想</button>
+    </div>
 
+    <script>
         function openEnvelope() {
             const envelope = document.getElementById('envelope');
             envelope.classList.add('opened');
+
+            // 延遲顯示信內容
             setTimeout(() => {
                 document.querySelector('.envelope-wrapper').style.display = 'none';
                 document.getElementById('mainTitle').style.display = 'block';
                 document.getElementById('letterContent').style.display = 'block';
-                typeWriter(); // 開始打字效果
+                document.getElementById('choices').style.display = 'block';
+                typeLetter();
             }, 1000);
+        }
+
+        // 逐字顯示信件
+        function typeLetter() {
+            const letterContent = document.getElementById('letterContent');
+            let i = 0;
+            const text = letterContent.innerHTML;
+            letterContent.innerHTML = '';
+
+            function addCharacter() {
+                if (i < text.length) {
+                    letterContent.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(addCharacter, 30);
+                }
+            }
+
+            addCharacter();
         }
 
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart');
-            heart.style.left = Math.random() * 
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (5 + Math.random() * 5) + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 10000);
+        }
+
+        setInterval(createHeart, 500);
+    </script>
+</body>
+</html>
