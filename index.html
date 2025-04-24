@@ -274,54 +274,129 @@
     </div>
 
     <script>
-        function openEnvelope() {
-            const envelope = document.getElementById('envelope');
-            if (envelope.classList.contains('opened')) return;
-            envelope.classList.add('opened');
+    function openEnvelope() {
+        const envelope = document.getElementById('envelope');
+        if (envelope.classList.contains('opened')) return;
+        envelope.classList.add('opened');
 
-            // 播放背景音樂
-            const music = document.getElementById('bgMusic');
-            music.play();
+        // 播放背景音樂
+        const music = document.getElementById('bgMusic');
+        music.play();
 
-            // 延遲顯示信內容
-            setTimeout(() => {
-                document.querySelector('.envelope-wrapper').style.display = 'none';
-                document.getElementById('mainTitle').style.display = 'block';
-                document.getElementById('letterContent').style.display = 'block';
-                typeLetter();
-            }, 1000);
-        }
+        setTimeout(() => {
+            document.querySelector('.envelope-wrapper').style.display = 'none';
+            document.getElementById('mainTitle').style.display = 'block';
+            document.getElementById('letterContent').style.display = 'block';
+            typeLetter();
+        }, 1000);
+    }
 
-        function typeLetter() {
-            const letterContent = document.getElementById('letterContent');
-            let i = 0;
-            const text = letterContent.innerHTML;
-            letterContent.innerHTML = '';
+    function typeLetter() {
+        const letterContent = document.getElementById('letterContent');
+        let i = 0;
+        const text = letterContent.innerHTML;
+        letterContent.innerHTML = '';
 
-            function addCharacter() {
-                if (i < text.length) {
-                    letterContent.innerHTML += text.charAt(i);
-                    i++;
-                    setTimeout(addCharacter, 120);
-                } else {
-                    // 當信件完全顯示完後，再顯示按鈕
+        function addCharacter() {
+            if (i < text.length) {
+                letterContent.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(addCharacter, 120);
+            } else {
+                // 確保 choices 按鈕顯示
+                setTimeout(() => {
                     document.getElementById('choices').style.display = 'block';
-                }
+                }, 500); // 增加一點延遲，確保動畫完成後顯示按鈕
+
+                // 綁定「我願意」按鈕觸發浪漫特效
+                document.querySelector('.choices button:first-child').onclick = () => {
+                    triggerMeteorAnimation();
+                };
             }
-
-            addCharacter();
         }
 
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = (5 + Math.random() * 5) + 's';
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 10000);
+        addCharacter();
+    }
+
+    function createHeart() {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = (5 + Math.random() * 5) + 's';
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 10000);
+    }
+
+    setInterval(createHeart, 500);
+
+    function triggerMeteorAnimation() {
+        // 流星
+        const meteor = document.createElement('div');
+        meteor.style.position = 'fixed';
+        meteor.style.top = '-50px';
+        meteor.style.right = '-100px';
+        meteor.style.width = '8px';
+        meteor.style.height = '8px';
+        meteor.style.background = 'white';
+        meteor.style.borderRadius = '50%';
+        meteor.style.boxShadow = '0 0 8px 4px rgba(255,255,255,0.8)';
+        meteor.style.zIndex = 999;
+        meteor.style.animation = 'meteor-fall 1.2s ease-out forwards';
+        document.body.appendChild(meteor);
+
+        // 星塵
+        for (let i = 0; i < 10; i++) {
+            const sparkle = document.createElement('div');
+            sparkle.style.position = 'fixed';
+            sparkle.style.width = '4px';
+            sparkle.style.height = '4px';
+            sparkle.style.background = 'white';
+            sparkle.style.borderRadius = '50%';
+            sparkle.style.zIndex = 998;
+            sparkle.style.top = 30 + i * 3 + 'vh';
+            sparkle.style.left = 70 - i * 5 + 'vw';
+            sparkle.style.animation = 'sparkle-fade 2s linear forwards';
+            document.body.appendChild(sparkle);
         }
 
-        setInterval(createHeart, 500);
-    </script>
+        // 心形光圈
+        setTimeout(() => {
+            const circle = document.createElement('div');
+            circle.style.position = 'fixed';
+            circle.style.left = '50%';
+            circle.style.top = '50%';
+            circle.style.width = '50px';
+            circle.style.height = '50px';
+            circle.style.transform = 'translate(-50%, -50%)';
+            circle.style.border = '3px solid pink';
+            circle.style.borderRadius = '50%';
+            circle.style.zIndex = 997;
+            circle.style.animation = 'heart-pulse 2s ease-out forwards';
+            document.body.appendChild(circle);
+        }, 1000);
+
+        // 情話浮現
+        setTimeout(() => {
+            const text = document.createElement('div');
+            text.innerText = '你出現的那一刻，星星都羨慕了。';
+            text.style.position = 'fixed';
+            text.style.top = '60%';
+            text.style.left = '50%';
+            text.style.transform = 'translateX(-50%)';
+            text.style.fontFamily = "'Dancing Script', cursive";
+            text.style.fontSize = '28px';
+            text.style.color = 'white';
+            text.style.zIndex = 996;
+            text.style.opacity = '0';
+            text.style.animation = 'text-fade-in 3s ease forwards';
+            document.body.appendChild(text);
+        }, 1500);
+
+        // 跳轉
+        setTimeout(() => {
+            window.location.href = 'yes.html';
+        }, 5000);
+    }
+</script>
 </body>
 </html>
