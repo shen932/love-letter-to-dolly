@@ -367,36 +367,57 @@
 
         setInterval(createHeart, 500);
 
-        function triggerMeteorAnimation() {
-            const meteor = document.createElement('div');
-            meteor.classList.add('meteor');
-            document.body.appendChild(meteor);
+        
 
-            for (let i = 0; i < 10; i++) {
-                const sparkle = document.createElement('div');
-                sparkle.classList.add('sparkle');
-                sparkle.style.top = Math.random() * 100 + 'vh';
-                sparkle.style.left = Math.random() * 100 + 'vw';
-                document.body.appendChild(sparkle);
-            }
+function triggerMeteorAnimation() {
+    // 流星（加大、加亮）
+    const meteor = document.createElement('div');
+    meteor.style.position = 'fixed';
+    meteor.style.top = '-80px';
+    meteor.style.right = '-120px';
+    meteor.style.width = '12px';
+    meteor.style.height = '12px';
+    meteor.style.background = 'white';
+    meteor.style.borderRadius = '50%';
+    meteor.style.boxShadow = '0 0 20px 10px rgba(255,255,255,1)';
+    meteor.style.zIndex = 999;
+    meteor.style.animation = 'meteor-fall 1.2s ease-out forwards';
+    document.body.appendChild(meteor);
 
-            setTimeout(() => {
-                const circle = document.createElement('div');
-                circle.classList.add('heart-circle');
-                document.body.appendChild(circle);
-            }, 1000);
+    // 星塵
+    for (let i = 0; i < 15; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.classList.add('sparkle');
+        sparkle.style.top = 30 + i * 2 + 'vh';
+        sparkle.style.left = 70 - i * 4 + 'vw';
+        sparkle.style.animation = 'sparkle-fade 2s linear forwards';
+        document.body.appendChild(sparkle);
+    }
 
-            setTimeout(() => {
-                const text = document.createElement('div');
-                text.classList.add('love-text');
-                text.innerText = '你出現的那一刻，星星都羨慕了。';
-                document.body.appendChild(text);
-            }, 1500);
+    // 心形光圈
+    setTimeout(() => {
+        const circle = document.createElement('div');
+        circle.classList.add('heart-circle');
+        document.body.appendChild(circle);
+    }, 1000);
 
-            setTimeout(() => {
-                window.location.href = 'yes.html';
-            }, 5000);
-        }
-    </script>
+    // 情話 + 框框
+    setTimeout(() => {
+        const text = document.createElement('div');
+        text.classList.add('love-text');
+        text.innerText = '你出現的那一刻，星星都羨慕了。';
+        text.style.padding = '15px 25px';
+        text.style.border = '2px dashed white';
+        text.style.borderRadius = '12px';
+        text.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+        document.body.appendChild(text);
+    }, 1500);
+
+    // 5 秒後跳轉
+    setTimeout(() => {
+        window.location.href = 'yes.html';
+    }, 6500);
+}
+</script>
 </body>
 </html>
