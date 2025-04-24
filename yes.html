@@ -1,3 +1,5 @@
+好幫我整合
+
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
@@ -64,47 +66,54 @@
             background-color: #ec407a;
         }
 
-        .star {
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .heart {
+            position: fixed;
+            top: -50px;
+            width: 20px;
+            height: 20px;
+            background-color: #ff7eb9;
+            transform: rotate(45deg);
+            animation: fall 10s linear infinite;
+            opacity: 0.8;
+            z-index: 0;
+        }
+
+        .heart::before, .heart::after {
+            content: "";
             position: absolute;
-            width: 40px;
-            height: 40px;
-            background-color: #fff;
-            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-            transform: scale(0);
-            animation: fly 3s forwards;
-            z-index: 10;
+            width: 20px;
+            height: 20px;
+            background-color: #ff7eb9;
+            border-radius: 50%;
         }
 
-        @keyframes fly {
-            0% {
-                top: 100%;
-                left: 50%;
-                transform: scale(0);
-            }
-            50% {
-                top: 30%;
-                left: 60%;
-                transform: scale(1.5);
-            }
-            100% {
-                top: 10%;
-                left: 50%;
-                transform: scale(2);
-            }
+        .heart::before {
+            top: -10px;
+            left: 0;
         }
 
-        .message {
-            display: none;
-            font-size: 36px;
-            text-align: center;
-            color: #ff7eb9;
-            font-family: 'Pacifico', cursive;
-            margin-top: 50px;
+        .heart::after {
+            left: -10px;
+            top: 0;
         }
 
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(45deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(45deg); opacity: 0; }
+        }
     </style>
 </head>
 <body>
+    <canvas id="fireworks"></canvas>
+
     <h1>Yes! To Dolly</h1>
     <div class="letter">
         我很開心妳願意回應我的心意！  
@@ -113,27 +122,107 @@
         那今天就是我們在一起的第一天💜 
     </div>
     <div class="choices">
-        <button onclick="startAnimation()">我願意</button>
-    </div>
-
-    <div class="message" id="message">
-        讓我們一起走下去，攜手共創未來的每一個美好瞬間💖
+        <button onclick="location.href='index.html'">返回</button>
     </div>
 
     <script>
-        function startAnimation() {
-            // 創建並啟動星星
-            const star = document.createElement('div');
-            star.classList.add('star');
-            document.body.appendChild(star);
-
-            // 設置星星動畫結束後顯示情話
-            star.addEventListener('animationend', function() {
-                const message = document.getElementById('message');
-                message.style.display = 'block'; // 顯示情話
-                message.classList.add('fade-in'); // 這可以進一步加入淡入效果，如果需要
-            });
+        // 愛心飄落動畫
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (5 + Math.random() * 5) + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 10000);
         }
+        setInterval(createHeart, 500);
+
+        // 煙火動畫
+        const canvas = document.getElementById('fireworks');
+        const ctx = canvas.getContext('2d');
+        let fireworks = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Firework {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height;
+                this.targetY = Math.random() * canvas.height / 2;
+                this.speed = 4 + Math.random() * 4;
+                this.exploded = false;
+                this.particles = [];
+            }
+            update() {
+                if (!this.exploded) {
+                    this.y -= this.speed;
+                    if (this.y <= this.targetY) {
+                        this.exploded = true;
+                        for (let i = 0; i < 50; i++) {
+                            this.particles.push(new Particle(this.x, this.y));
+                        }
+                    }
+                } else {
+                    this.particles.forEach(p => p.update());
+                }
+            }
+            draw() {
+                if (!this.exploded) {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+                    ctx.fillStyle = 'white';
+                    ctx.fill();
+                } else {
+                    this.particles.forEach(p => p.draw());
+                }
+            }
+        }
+
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.vx = Math.cos(Math.random() * 2 * Math.PI) * (2 + Math.random() * 4);
+                this.vy = Math.sin(Math.random() * 2 * Math.PI) * (2 + Math.random() * 4);
+                this.alpha = 1;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.alpha -= 0.02;
+            }
+            draw() {
+                if (this.alpha <= 0) return;
+                ctx.globalAlpha = this.alpha;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+                ctx.fillStyle = '#ff7eb9';
+                ctx.fill();
+                ctx.globalAlpha = 1;
+            }
+        }
+
+        function animateFireworks() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if (Math.random() < 0.05) {
+                fireworks.push(new Firework());
+            }
+            fireworks.forEach(fw => fw.update());
+            fireworks.forEach(fw => fw.draw());
+            fireworks = fireworks.filter(fw => fw.exploded === false || fw.particles.some(p => p.alpha > 0));
+            requestAnimationFrame(animateFireworks);
+        }
+
+        animateFireworks();
     </script>
 </body>
 </html>
