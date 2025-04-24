@@ -9,9 +9,9 @@
     body {
       margin: 0;
       padding: 0;
-      background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+      background: linear-gradient(to bottom, #0d1b2a, #1b263b, #415a77);
       font-family: 'jf-openhuninn', 'Dancing Script', cursive, sans-serif;
-      color: #fff;
+      color: #ffffff;
       overflow: hidden;
       min-height: 100vh;
     }
@@ -20,172 +20,176 @@
       position: fixed;
       top: 0;
       left: 0;
-      z-index: 1;
       pointer-events: none;
-    }
-
-    .falling-star {
-      position: fixed;
-      width: 3px;
-      height: 100px;
-      background: linear-gradient(45deg, white, transparent);
-      top: -100px;
-      left: 50%;
-      transform: rotate(45deg);
-      animation: shoot 1s ease-out forwards;
-      z-index: 2;
-    }
-
-    @keyframes shoot {
-      0% {
-        top: -100px;
-        left: 60%;
-        opacity: 1;
-      }
-      100% {
-        top: 100%;
-        left: 0%;
-        opacity: 0;
-      }
-    }
-
-    .love-box {
-      display: none;
-      position: absolute;
-      top: 30%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      padding: 30px 40px;
-      background: rgba(255, 255, 255, 0.9);
-      color: #c2185b;
-      font-size: 28px;
-      font-weight: bold;
-      border-radius: 20px;
-      text-align: center;
-      box-shadow: 0 0 20px rgba(255, 192, 203, 0.7);
-      z-index: 3;
-    }
-
-    .main-content {
-      display: none;
-      position: relative;
-      z-index: 2;
-      padding: 60px 20px;
-      text-align: center;
+      z-index: 0;
     }
 
     h1 {
       font-family: 'Pacifico', cursive;
       font-size: 60px;
-      color: #ffb6c1;
-      margin-bottom: 30px;
-      text-shadow: 1px 1px 5px rgba(255, 255, 255, 0.3);
+      text-align: center;
+      color: #f8bbd0;
+      margin-top: 50px;
+      text-shadow: 2px 2px 8px #000;
+      opacity: 0;
+      transition: opacity 1s ease;
     }
 
     .letter {
-      max-width: 800px;
-      margin: 0 auto;
+      max-width: 750px;
+      margin: 40px auto;
       padding: 40px;
-      background: rgba(255, 255, 255, 0.85);
-      color: #4b2e2e;
+      background: rgba(255, 255, 255, 0.1);
       border-radius: 20px;
       font-size: 26px;
+      box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
       white-space: pre-wrap;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      transition: opacity 1s ease;
+      color: #ffe4f0;
+    }
+
+    .choices {
+      text-align: center;
+      margin-top: 30px;
+      opacity: 0;
+      transition: opacity 1s ease;
     }
 
     .choices button {
-      margin-top: 30px;
       font-size: 22px;
       padding: 10px 30px;
+      margin: 10px;
       border-radius: 10px;
       border: none;
-      background-color: #f48fb1;
+      background-color: #ff7eb9;
       color: white;
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
 
     .choices button:hover {
-      background-color: #ec407a;
+      background-color: #ff4fa6;
+    }
+
+    .love-note {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 25px 40px;
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffd6f5;
+      font-size: 26px;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+      text-align: center;
+      z-index: 2;
+      display: none;
+      backdrop-filter: blur(8px);
+      white-space: pre-wrap;
     }
   </style>
 </head>
 <body>
-  <canvas id="stars"></canvas>
+  <canvas id="meteors"></canvas>
 
-  <div class="falling-star" id="fallingStar"></div>
+  <div class="love-note" id="loveNote">我從未如此篤定，<br>妳就是我要走一輩子的人。</div>
 
-  <div class="love-box" id="loveBox">我知道，從這一刻開始，我們的故事會閃耀如同星辰。</div>
+  <h1 id="title">Yes! To Dolly</h1>
 
-  <div class="main-content" id="mainContent">
-    <h1>Yes! To Dolly</h1>
-    <div class="letter">
-      我很開心妳願意回應我的心意！  
-      接下來，我們一起走向未來，一起共度每一個冒險的日子。  
-      這是我們故事的開始，也是一個新的篇章。  
-      那今天就是我們在一起的第一天💜 
-    </div>
-    <div class="choices">
-      <button onclick="location.href='index.html'">返回</button>
-    </div>
+  <div class="letter" id="letter">
+    我很開心妳願意回應我的心意！  
+    接下來，我們一起走向未來，一起共度每一個冒險的日子。  
+    這是我們故事的開始，也是一個新的篇章。  
+    那今天就是我們在一起的第一天💜 
+  </div>
+
+  <div class="choices" id="buttons">
+    <button onclick="location.href='index.html'">返回</button>
   </div>
 
   <script>
-    // 星空背景動畫
-    const canvas = document.getElementById("stars");
+    // 流星動畫
+    const canvas = document.getElementById("meteors");
     const ctx = canvas.getContext("2d");
-    let stars = [];
 
     function resizeCanvas() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     }
 
-    window.addEventListener("resize", resizeCanvas);
     resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
 
-    function createStars(count) {
-      stars = [];
-      for (let i = 0; i < count; i++) {
-        stars.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          r: Math.random() * 1.5,
-          alpha: Math.random(),
-          speed: Math.random() * 0.02
-        });
+    const meteors = [];
+
+    class Meteor {
+      constructor() {
+        this.reset();
+      }
+
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height / 2;
+        this.len = 300 + Math.random() * 200;
+        this.speed = 10 + Math.random() * 10;
+        this.alpha = 1;
+        this.angle = Math.PI / 4;
+      }
+
+      update() {
+        this.x += this.speed * Math.cos(this.angle);
+        this.y += this.speed * Math.sin(this.angle);
+        this.alpha -= 0.01;
+        if (this.alpha <= 0) {
+          this.reset();
+        }
+      }
+
+      draw() {
+        ctx.save();
+        ctx.globalAlpha = this.alpha;
+        const x2 = this.x - this.len * Math.cos(this.angle);
+        const y2 = this.y - this.len * Math.sin(this.angle);
+        const gradient = ctx.createLinearGradient(this.x, this.y, x2, y2);
+        gradient.addColorStop(0, "white");
+        gradient.addColorStop(1, "transparent");
+        ctx.strokeStyle = gradient;
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(this.x, this.y);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+        ctx.restore();
       }
     }
 
-    function drawStars() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "white";
-      stars.forEach(star => {
-        ctx.globalAlpha = star.alpha;
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.r, 0, 2 * Math.PI);
-        ctx.fill();
-        star.alpha += star.speed;
-        if (star.alpha <= 0 || star.alpha >= 1) star.speed = -star.speed;
-      });
-      requestAnimationFrame(drawStars);
+    for (let i = 0; i < 20; i++) {
+      meteors.push(new Meteor());
     }
 
-    createStars(150);
-    drawStars();
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      meteors.forEach(meteor => {
+        meteor.update();
+        meteor.draw();
+      });
+      requestAnimationFrame(animate);
+    }
 
-    // 流星出現 -> 情話 -> 內容
-    window.onload = () => {
-      setTimeout(() => {
-        document.getElementById('fallingStar').style.display = 'none';
-        document.getElementById('loveBox').style.display = 'block';
-        setTimeout(() => {
-          document.getElementById('loveBox').style.display = 'none';
-          document.getElementById('mainContent').style.display = 'block';
-        }, 3500);
-      }, 1200);
-    };
+    animate();
+
+    // 動畫順序控制
+    setTimeout(() => {
+      document.getElementById("loveNote").style.display = "block";
+    }, 3000);
+
+    setTimeout(() => {
+      document.getElementById("title").style.opacity = 1;
+      document.getElementById("letter").style.opacity = 1;
+      document.getElementById("buttons").style.opacity = 1;
+    }, 6000);
   </script>
 </body>
 </html>
