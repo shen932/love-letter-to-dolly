@@ -401,22 +401,26 @@ function triggerMeteorAnimation() {
         document.body.appendChild(circle);
     }, 1000);
 
-    // 情話 + 框框
+    // 情話 + 框框 + 濃字體 + 發光效果
     setTimeout(() => {
         const text = document.createElement('div');
         text.classList.add('love-text');
         text.innerText = '你出現的那一刻，星星都羨慕了。';
         text.style.padding = '15px 25px';
-        text.style.border = '2px dashed white';
+        text.style.border = '2px solid #f06292';
         text.style.borderRadius = '12px';
         text.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+        text.style.color = '#f06292';
+        text.style.fontWeight = 'bold';
+        text.style.textShadow = '0 0 8px rgba(240, 98, 146, 0.8)';
+        text.style.boxShadow = '0 0 12px rgba(240, 98, 146, 0.6)';
         document.body.appendChild(text);
     }, 1500);
 
     // 5 秒後跳轉
     setTimeout(() => {
         window.location.href = 'yes.html';
-    }, 6500);
+    }, 8500);
 }
 </script>
 </body>
