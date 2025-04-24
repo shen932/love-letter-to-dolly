@@ -6,31 +6,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Pacifico&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/gh/justfont/webfonts@master/huninn/style.css" rel="stylesheet">
     <style>
-        * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+        }
 
         body {
             margin: 0;
             padding: 0;
-            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+            background: linear-gradient(to bottom, #e0f7fa, #f48fb1);
             font-family: 'jf-openhuninn', 'Dancing Script', cursive, sans-serif;
             overflow-x: hidden;
             min-height: 100vh;
-            color: white;
-        }
-
-        .star {
-            position: fixed;
-            width: 2px;
-            height: 2px;
-            background: white;
-            border-radius: 50%;
-            opacity: 0.8;
-            animation: twinkle 2s infinite ease-in-out alternate;
-        }
-
-        @keyframes twinkle {
-            0% { opacity: 0.3; transform: scale(1); }
-            100% { opacity: 1; transform: scale(1.6); }
         }
 
         .envelope-wrapper {
@@ -77,7 +63,10 @@
             transition: all 0.8s ease;
         }
 
-        .opened .flap { transform: rotateX(-120deg); }
+        .opened .flap {
+            transform: rotateX(-120deg);
+        }
+
         .opened .letter-sheet {
             opacity: 1;
             transform: translateY(0);
@@ -110,7 +99,7 @@
             font-family: 'Pacifico', cursive;
             font-size: 60px;
             text-align: center;
-            color: #f8bbd0;
+            color: #C2185B;
             margin-top: 30px;
         }
 
@@ -118,11 +107,15 @@
             max-width: 750px;
             margin: 40px auto;
             padding: 40px;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
             font-size: 26px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             white-space: pre-wrap;
-            color: #fff;
+            color: #4b2e2e;
+            background-image: url('4C39901F-2AD0-446B-9950-A3908910A6EA.png');
+            background-size: cover;
+            background-position: center;
         }
 
         .choices {
@@ -152,67 +145,54 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .meteor {
+        .heart {
             position: fixed;
-            width: 12px;
-            height: 12px;
-            background-color: white;
+            top: -50px;
+            width: 20px;
+            height: 20px;
+            background-color: #ff7eb9;
+            transform: rotate(45deg);
+            animation: fall 10s linear infinite;
+            opacity: 0.8;
+            z-index: 1;
+        }
+
+        .heart::before, .heart::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #ff7eb9;
             border-radius: 50%;
-            box-shadow: 0 0 20px 10px rgba(255,255,255,1);
-            z-index: 999;
-            animation: meteor-fall 1.2s ease-out forwards;
         }
 
-        @keyframes meteor-fall {
-            0% { top: -50px; right: -100px; transform: rotate(0deg); }
-            100% { top: 100vh; right: 100vw; transform: rotate(360deg); }
+        .heart::before {
+            top: -10px;
+            left: 0;
         }
 
-        .heart-circle {
-            position: fixed;
-            left: 50%;
-            top: 50%;
-            width: 50px;
-            height: 50px;
-            transform: translate(-50%, -50%);
-            border: 3px solid pink;
-            border-radius: 50%;
-            z-index: 998;
-            animation: heart-pulse 2s ease-out forwards;
+        .heart::after {
+            left: -10px;
+            top: 0;
         }
 
-        @keyframes heart-pulse {
-            0%, 100% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.5); opacity: 1; }
-        }
-
-        .love-text {
-            position: fixed;
-            top: 62%;
-            left: 50%;
-            transform: translateX(-50%);
-            font-family: 'Dancing Script', cursive;
-            font-size: 28px;
-            color: #f06292;
-            z-index: 997;
-            opacity: 0;
-            padding: 15px 25px;
-            border: 2px solid #f06292;
-            border-radius: 12px;
-            background-color: rgba(255, 255, 255, 0.1);
-            font-weight: bold;
-            text-shadow: 0 0 8px rgba(240, 98, 146, 0.8);
-            box-shadow: 0 0 12px rgba(240, 98, 146, 0.6);
-            animation: text-fade-in 3s ease forwards;
-        }
-
-        @keyframes text-fade-in {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(45deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(45deg);
+                opacity: 0;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- 預載入背景圖片 -->
+    <img src="4C39901F-2AD0-446B-9950-A3908910A6EA.png" style="display: none;" alt="preload" />
+
+    <!-- 音樂 -->
     <audio id="bgMusic" src="陳奕迅－好久不見 音檔.mp3" preload="auto"></audio>
 
     <div class="envelope-wrapper">
@@ -286,31 +266,24 @@
         我想陪妳走下去。  
 
                           **Shen Ching**
-    
     </div>
 
     <div class="choices" id="choices">
-        <button id="yesBtn">我願意</button>
+        <button onclick="location.href='yes.html'">我願意</button>
         <button onclick="location.href='wait.html'">再想想</button>
     </div>
 
     <script>
-        for (let i = 0; i < 80; i++) {
-            const star = document.createElement('div');
-            star.classList.add('star');
-            star.style.left = Math.random() * 100 + 'vw';
-            star.style.top = Math.random() * 100 + 'vh';
-            star.style.animationDuration = (Math.random() * 3 + 2) + 's';
-            star.style.animationDelay = Math.random() * 5 + 's';
-            document.body.appendChild(star);
-        }
-
         function openEnvelope() {
             const envelope = document.getElementById('envelope');
             if (envelope.classList.contains('opened')) return;
             envelope.classList.add('opened');
-            document.getElementById('bgMusic').play();
 
+            // 播放背景音樂
+            const music = document.getElementById('bgMusic');
+            music.play();
+
+            // 延遲顯示信內容
             setTimeout(() => {
                 document.querySelector('.envelope-wrapper').style.display = 'none';
                 document.getElementById('mainTitle').style.display = 'block';
@@ -331,37 +304,24 @@
                     i++;
                     setTimeout(addCharacter, 120);
                 } else {
-                    setTimeout(() => {
-                        document.getElementById('choices').style.display = 'block';
-                        document.getElementById('yesBtn').onclick = () => triggerMeteorAnimation();
-                    }, 500);
+                    // 當信件完全顯示完後，再顯示按鈕
+                    document.getElementById('choices').style.display = 'block';
                 }
             }
+
             addCharacter();
         }
 
-        function triggerMeteorAnimation() {
-            const meteor = document.createElement('div');
-            meteor.classList.add('meteor');
-            document.body.appendChild(meteor);
-
-            setTimeout(() => {
-                const circle = document.createElement('div');
-                circle.classList.add('heart-circle');
-                document.body.appendChild(circle);
-            }, 1000);
-
-            setTimeout(() => {
-                const text = document.createElement('div');
-                text.classList.add('love-text');
-                text.innerText = '你出現的那一刻，星星都羨慕了';
-                document.body.appendChild(text);
-            }, 1500);
-
-            setTimeout(() => {
-                window.location.href = 'yes.html';
-            }, 8500);
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (5 + Math.random() * 5) + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 10000);
         }
+
+        setInterval(createHeart, 500);
     </script>
 </body>
 </html>
