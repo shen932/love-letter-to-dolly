@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <title>Yes - To Dolly</title>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Pacifico&display=swap" rel="stylesheet" />
-  <link href="https://cdn.jsdelivr.net/gh/justfont/webfonts@master/huninn/style.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Pacifico&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/gh/justfont/webfonts@master/huninn/style.css" rel="stylesheet">
   <style>
     body {
       margin: 0;
       padding: 0;
       background: linear-gradient(to bottom, #0d1b2a, #1b263b, #415a77);
       font-family: 'jf-openhuninn', 'Dancing Script', cursive, sans-serif;
-      color: #ffffff;
+      color: #fff;
       overflow: hidden;
       min-height: 100vh;
     }
@@ -20,19 +20,64 @@
       position: fixed;
       top: 0;
       left: 0;
-      pointer-events: none;
       z-index: 0;
+      pointer-events: none;
+    }
+
+    .star {
+      width: 30px;
+      height: 30px;
+      background: radial-gradient(white, rgba(255,255,255,0));
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      animation: star-pop 1s ease-out forwards;
+      z-index: 2;
+    }
+
+    @keyframes star-pop {
+      0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+      50% { transform: translate(-50%, -50%) scale(1.5); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    }
+
+    .love-note {
+      display: none;
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(255,255,255,0.2);
+      border-radius: 15px;
+      padding: 30px 40px;
+      color: #fcd5ce;
+      font-size: 24px;
+      z-index: 3;
+      animation: fadeIn 1.5s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+      to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    }
+
+    .content {
+      opacity: 0;
+      transition: opacity 2s ease;
+      z-index: 2;
+      position: relative;
     }
 
     h1 {
       font-family: 'Pacifico', cursive;
       font-size: 60px;
       text-align: center;
-      color: #f8bbd0;
       margin-top: 50px;
-      text-shadow: 2px 2px 8px #000;
-      opacity: 0;
-      transition: opacity 1s ease;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
     }
 
     .letter {
@@ -42,18 +87,13 @@
       background: rgba(255, 255, 255, 0.1);
       border-radius: 20px;
       font-size: 26px;
-      box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
       white-space: pre-wrap;
-      opacity: 0;
-      transition: opacity 1s ease;
-      color: #ffe4f0;
     }
 
     .choices {
       text-align: center;
       margin-top: 30px;
-      opacity: 0;
-      transition: opacity 1s ease;
     }
 
     .choices button {
@@ -62,134 +102,101 @@
       margin: 10px;
       border-radius: 10px;
       border: none;
-      background-color: #ff7eb9;
+      background-color: #f48fb1;
       color: white;
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
 
     .choices button:hover {
-      background-color: #ff4fa6;
-    }
-
-    .love-note {
-      position: absolute;
-      top: 40%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      padding: 25px 40px;
-      background: rgba(255, 255, 255, 0.15);
-      color: #ffd6f5;
-      font-size: 26px;
-      border-radius: 20px;
-      box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
-      text-align: center;
-      z-index: 2;
-      display: none;
-      backdrop-filter: blur(8px);
-      white-space: pre-wrap;
+      background-color: #ec407a;
     }
   </style>
 </head>
 <body>
-  <canvas id="meteors"></canvas>
+  <canvas id="meteorCanvas"></canvas>
+  <div class="star" id="star" style="display: none;"></div>
+  <div class="love-note" id="loveNote">「無論未來多遠，我都想和妳一起走。」</div>
 
-  <div class="love-note" id="loveNote">這是想帶你去看的流行雨<br>喜歡嗎</div>
-
-  <h1 id="title">Yes! To Dolly</h1>
-
-  <div class="letter" id="letter">
-    我很開心妳願意回應我的心意！  
-    接下來，我們一起走向未來，一起共度每一個冒險的日子。  
-    這是我們故事的開始，也是一個新的篇章。  
-    那今天就是我們在一起的第一天💜 
-  </div>
-
-  <div class="choices" id="buttons">
-    <button onclick="location.href='index.html'">返回</button>
+  <div class="content" id="mainContent">
+    <h1>Yes! To Dolly</h1>
+    <div class="letter">
+      我很開心妳願意回應我的心意！  
+      接下來，我們一起走向未來，一起共度每一個冒險的日子。  
+      這是我們故事的開始，也是一個新的篇章。  
+      那今天就是我們在一起的第一天💜 
+    </div>
+    <div class="choices">
+      <button onclick="location.href='index.html'">返回</button>
+    </div>
   </div>
 
   <script>
-    // 流星動畫
-    const canvas = document.getElementById("meteors");
+    const canvas = document.getElementById("meteorCanvas");
     const ctx = canvas.getContext("2d");
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-
-    resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
-
-    const meteors = [];
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
     class Meteor {
       constructor() {
         this.reset();
       }
-
       reset() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height / 2;
-        this.len = 300 + Math.random() * 200;
-        this.speed = 10 + Math.random() * 10;
-        this.alpha = 1;
+        this.length = 200 + Math.random() * 100;
+        this.speed = 10 + Math.random() * 5;
         this.angle = Math.PI / 4;
+        this.alpha = 1;
       }
-
       update() {
-        this.x += this.speed * Math.cos(this.angle);
-        this.y += this.speed * Math.sin(this.angle);
+        this.x -= this.speed;
+        this.y += this.speed;
         this.alpha -= 0.01;
-        if (this.alpha <= 0) {
-          this.reset();
-        }
+        if (this.alpha <= 0) this.reset();
       }
-
       draw() {
         ctx.save();
         ctx.globalAlpha = this.alpha;
-        const x2 = this.x - this.len * Math.cos(this.angle);
-        const y2 = this.y - this.len * Math.sin(this.angle);
-        const gradient = ctx.createLinearGradient(this.x, this.y, x2, y2);
-        gradient.addColorStop(0, "white");
-        gradient.addColorStop(1, "transparent");
-        ctx.strokeStyle = gradient;
-        ctx.lineWidth = 3;
+        ctx.strokeStyle = "white";
+        ctx.lineWidth = 2;
         ctx.beginPath();
         ctx.moveTo(this.x, this.y);
-        ctx.lineTo(x2, y2);
+        ctx.lineTo(this.x + this.length * Math.cos(this.angle), this.y - this.length * Math.sin(this.angle));
         ctx.stroke();
         ctx.restore();
       }
     }
 
-    for (let i = 0; i < 20; i++) {
-      meteors.push(new Meteor());
+    const meteors = Array.from({length: 20}, () => new Meteor());
+
+    function animateOnce() {
+      let frames = 0;
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        meteors.forEach(m => {
+          m.update();
+          m.draw();
+        });
+        frames++;
+        if (frames < 80) {
+          requestAnimationFrame(animate);
+        } else {
+          setTimeout(() => {
+            document.getElementById('star').style.display = 'block';
+            setTimeout(() => {
+              document.getElementById('loveNote').style.display = 'block';
+              setTimeout(() => {
+                document.getElementById('mainContent').style.opacity = 1;
+              }, 1500);
+            }, 1500);
+          }, 1000);
+        }
+      }
+      animate();
     }
 
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      meteors.forEach(meteor => {
-        meteor.update();
-        meteor.draw();
-      });
-      requestAnimationFrame(animate);
-    }
-
-    animate();
-
-    // 動畫順序控制
-    setTimeout(() => {
-      document.getElementById("loveNote").style.display = "block";
-    }, 3000);
-
-    setTimeout(() => {
-      document.getElementById("title").style.opacity = 1;
-      document.getElementById("letter").style.opacity = 1;
-      document.getElementById("buttons").style.opacity = 1;
-    }, 6000);
+    animateOnce();
   </script>
 </body>
 </html>
