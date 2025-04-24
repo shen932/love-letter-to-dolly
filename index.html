@@ -38,6 +38,106 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
+        /* 流星動畫 */
+        @keyframes meteor-fall {
+            0% {
+                top: -50px;
+                right: -100px;
+                transform: rotate(0deg);
+            }
+            100% {
+                top: 100vh;
+                right: 100vw;
+                transform: rotate(360deg);
+            }
+        }
+
+        /* 星塵閃爍動畫 */
+        @keyframes sparkle-fade {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0);
+            }
+        }
+
+        /* 心形光圈脈動動畫 */
+        @keyframes heart-pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+            50% {
+                transform: scale(1.5);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+        }
+
+        /* 情話浮現動畫 */
+        @keyframes text-fade-in {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* 流星和星塵的基本樣式 */
+        .meteor, .sparkle {
+            position: fixed;
+            background-color: white;
+            border-radius: 50%;
+        }
+
+        .meteor {
+            width: 8px;
+            height: 8px;
+            box-shadow: 0 0 8px 4px rgba(255,255,255,0.8);
+            z-index: 999;
+        }
+
+        .sparkle {
+            width: 4px;
+            height: 4px;
+            z-index: 998;
+        }
+
+        /* 心形光圈樣式 */
+        .heart-circle {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            width: 50px;
+            height: 50px;
+            transform: translate(-50%, -50%);
+            border: 3px solid pink;
+            border-radius: 50%;
+            z-index: 997;
+            animation: heart-pulse 2s ease-out forwards;
+        }
+
+        /* 情話文本樣式 */
+        .love-text {
+            position: fixed;
+            top: 60%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Dancing Script', cursive;
+            font-size: 28px;
+            color: white;
+            z-index: 996;
+            opacity: 0;
+            animation: text-fade-in 3s ease forwards;
+        }
+
         .flap {
             position: absolute;
             top: 0;
