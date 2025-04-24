@@ -6,9 +6,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Pacifico&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/gh/justfont/webfonts@master/huninn/style.css" rel="stylesheet">
     <style>
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
 
         body {
             margin: 0;
@@ -38,106 +36,6 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
-        /* 流星動畫 */
-        @keyframes meteor-fall {
-            0% {
-                top: -50px;
-                right: -100px;
-                transform: rotate(0deg);
-            }
-            100% {
-                top: 100vh;
-                right: 100vw;
-                transform: rotate(360deg);
-            }
-        }
-
-        /* 星塵閃爍動畫 */
-        @keyframes sparkle-fade {
-            0% {
-                opacity: 1;
-                transform: scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: scale(0);
-            }
-        }
-
-        /* 心形光圈脈動動畫 */
-        @keyframes heart-pulse {
-            0% {
-                transform: scale(1);
-                opacity: 0.8;
-            }
-            50% {
-                transform: scale(1.5);
-                opacity: 1;
-            }
-            100% {
-                transform: scale(1);
-                opacity: 0.8;
-            }
-        }
-
-        /* 情話浮現動畫 */
-        @keyframes text-fade-in {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
-        }
-
-        /* 流星和星塵的基本樣式 */
-        .meteor, .sparkle {
-            position: fixed;
-            background-color: white;
-            border-radius: 50%;
-        }
-
-        .meteor {
-            width: 8px;
-            height: 8px;
-            box-shadow: 0 0 8px 4px rgba(255,255,255,0.8);
-            z-index: 999;
-        }
-
-        .sparkle {
-            width: 4px;
-            height: 4px;
-            z-index: 998;
-        }
-
-        /* 心形光圈樣式 */
-        .heart-circle {
-            position: fixed;
-            left: 50%;
-            top: 50%;
-            width: 50px;
-            height: 50px;
-            transform: translate(-50%, -50%);
-            border: 3px solid pink;
-            border-radius: 50%;
-            z-index: 997;
-            animation: heart-pulse 2s ease-out forwards;
-        }
-
-        /* 情話文本樣式 */
-        .love-text {
-            position: fixed;
-            top: 60%;
-            left: 50%;
-            transform: translateX(-50%);
-            font-family: 'Dancing Script', cursive;
-            font-size: 28px;
-            color: white;
-            z-index: 996;
-            opacity: 0;
-            animation: text-fade-in 3s ease forwards;
-        }
-
         .flap {
             position: absolute;
             top: 0;
@@ -163,10 +61,7 @@
             transition: all 0.8s ease;
         }
 
-        .opened .flap {
-            transform: rotateX(-120deg);
-        }
-
+        .opened .flap { transform: rotateX(-120deg); }
         .opened .letter-sheet {
             opacity: 1;
             transform: translateY(0);
@@ -245,6 +140,73 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        .meteor {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background-color: white;
+            border-radius: 50%;
+            box-shadow: 0 0 8px 4px rgba(255,255,255,0.8);
+            z-index: 999;
+            animation: meteor-fall 1.2s ease-out forwards;
+        }
+
+        .sparkle {
+            width: 4px;
+            height: 4px;
+            background-color: white;
+            border-radius: 50%;
+            position: fixed;
+            z-index: 998;
+            animation: sparkle-fade 2s linear forwards;
+        }
+
+        .heart-circle {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            width: 50px;
+            height: 50px;
+            transform: translate(-50%, -50%);
+            border: 3px solid pink;
+            border-radius: 50%;
+            z-index: 997;
+            animation: heart-pulse 2s ease-out forwards;
+        }
+
+        .love-text {
+            position: fixed;
+            top: 60%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Dancing Script', cursive;
+            font-size: 28px;
+            color: white;
+            z-index: 996;
+            opacity: 0;
+            animation: text-fade-in 3s ease forwards;
+        }
+
+        @keyframes meteor-fall {
+            0% { top: -50px; right: -100px; transform: rotate(0deg); }
+            100% { top: 100vh; right: 100vw; transform: rotate(360deg); }
+        }
+
+        @keyframes sparkle-fade {
+            0% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0); }
+        }
+
+        @keyframes heart-pulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.5); opacity: 1; }
+        }
+
+        @keyframes text-fade-in {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
         .heart {
             position: fixed;
             top: -50px;
@@ -266,33 +228,17 @@
             border-radius: 50%;
         }
 
-        .heart::before {
-            top: -10px;
-            left: 0;
-        }
-
-        .heart::after {
-            left: -10px;
-            top: 0;
-        }
+        .heart::before { top: -10px; left: 0; }
+        .heart::after { left: -10px; top: 0; }
 
         @keyframes fall {
-            0% {
-                transform: translateY(0) rotate(45deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(100vh) rotate(45deg);
-                opacity: 0;
-            }
+            0% { transform: translateY(0) rotate(45deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(45deg); opacity: 0; }
         }
     </style>
 </head>
 <body>
-    <!-- 預載入背景圖片 -->
     <img src="4C39901F-2AD0-446B-9950-A3908910A6EA.png" style="display: none;" alt="preload" />
-
-    <!-- 音樂 -->
     <audio id="bgMusic" src="陳奕迅－好久不見 音檔.mp3" preload="auto"></audio>
 
     <div class="envelope-wrapper">
@@ -362,141 +308,95 @@
         我不知道妳最終想停下來的地方會是哪裡，  
         但我知道，我希望那個地方能有我。  
         所以
+        
         這一次，我不只是想等妳回來——  
-        我想陪妳走下去。  
-
+        我想陪妳走下去。    
                           **Shen Ching**
     </div>
 
     <div class="choices" id="choices">
-        <button onclick="location.href='yes.html'">我願意</button>
+        <button id="yesBtn">我願意</button>
         <button onclick="location.href='wait.html'">再想想</button>
     </div>
 
     <script>
-    function openEnvelope() {
-        const envelope = document.getElementById('envelope');
-        if (envelope.classList.contains('opened')) return;
-        envelope.classList.add('opened');
+        function openEnvelope() {
+            const envelope = document.getElementById('envelope');
+            if (envelope.classList.contains('opened')) return;
+            envelope.classList.add('opened');
+            document.getElementById('bgMusic').play();
 
-        // 播放背景音樂
-        const music = document.getElementById('bgMusic');
-        music.play();
+            setTimeout(() => {
+                document.querySelector('.envelope-wrapper').style.display = 'none';
+                document.getElementById('mainTitle').style.display = 'block';
+                document.getElementById('letterContent').style.display = 'block';
+                typeLetter();
+            }, 1000);
+        }
 
-        setTimeout(() => {
-            document.querySelector('.envelope-wrapper').style.display = 'none';
-            document.getElementById('mainTitle').style.display = 'block';
-            document.getElementById('letterContent').style.display = 'block';
-            typeLetter();
-        }, 1000);
-    }
+        function typeLetter() {
+            const letterContent = document.getElementById('letterContent');
+            let i = 0;
+            const text = letterContent.innerHTML;
+            letterContent.innerHTML = '';
 
-    function typeLetter() {
-        const letterContent = document.getElementById('letterContent');
-        let i = 0;
-        const text = letterContent.innerHTML;
-        letterContent.innerHTML = '';
-
-        function addCharacter() {
-            if (i < text.length) {
-                letterContent.innerHTML += text.charAt(i);
-                i++;
-                setTimeout(addCharacter, 120);
-            } else {
-                // 確保 choices 按鈕顯示
-                setTimeout(() => {
-                    document.getElementById('choices').style.display = 'block';
-                }, 500); // 增加一點延遲，確保動畫完成後顯示按鈕
-
-                // 綁定「我願意」按鈕觸發浪漫特效
-                document.querySelector('.choices button:first-child').onclick = () => {
-                    triggerMeteorAnimation();
-                };
+            function addCharacter() {
+                if (i < text.length) {
+                    letterContent.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(addCharacter, 120);
+                } else {
+                    setTimeout(() => {
+                        document.getElementById('choices').style.display = 'block';
+                        document.getElementById('yesBtn').onclick = () => triggerMeteorAnimation();
+                    }, 500);
+                }
             }
+
+            addCharacter();
         }
 
-        addCharacter();
-    }
-
-    function createHeart() {
-        const heart = document.createElement('div');
-        heart.classList.add('heart');
-        heart.style.left = Math.random() * 100 + 'vw';
-        heart.style.animationDuration = (5 + Math.random() * 5) + 's';
-        document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 10000);
-    }
-
-    setInterval(createHeart, 500);
-
-    function triggerMeteorAnimation() {
-        // 流星
-        const meteor = document.createElement('div');
-        meteor.style.position = 'fixed';
-        meteor.style.top = '-50px';
-        meteor.style.right = '-100px';
-        meteor.style.width = '8px';
-        meteor.style.height = '8px';
-        meteor.style.background = 'white';
-        meteor.style.borderRadius = '50%';
-        meteor.style.boxShadow = '0 0 8px 4px rgba(255,255,255,0.8)';
-        meteor.style.zIndex = 999;
-        meteor.style.animation = 'meteor-fall 1.2s ease-out forwards';
-        document.body.appendChild(meteor);
-
-        // 星塵
-        for (let i = 0; i < 10; i++) {
-            const sparkle = document.createElement('div');
-            sparkle.style.position = 'fixed';
-            sparkle.style.width = '4px';
-            sparkle.style.height = '4px';
-            sparkle.style.background = 'white';
-            sparkle.style.borderRadius = '50%';
-            sparkle.style.zIndex = 998;
-            sparkle.style.top = 30 + i * 3 + 'vh';
-            sparkle.style.left = 70 - i * 5 + 'vw';
-            sparkle.style.animation = 'sparkle-fade 2s linear forwards';
-            document.body.appendChild(sparkle);
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (5 + Math.random() * 5) + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 10000);
         }
 
-        // 心形光圈
-        setTimeout(() => {
-            const circle = document.createElement('div');
-            circle.style.position = 'fixed';
-            circle.style.left = '50%';
-            circle.style.top = '50%';
-            circle.style.width = '50px';
-            circle.style.height = '50px';
-            circle.style.transform = 'translate(-50%, -50%)';
-            circle.style.border = '3px solid pink';
-            circle.style.borderRadius = '50%';
-            circle.style.zIndex = 997;
-            circle.style.animation = 'heart-pulse 2s ease-out forwards';
-            document.body.appendChild(circle);
-        }, 1000);
+        setInterval(createHeart, 500);
 
-        // 情話浮現
-        setTimeout(() => {
-            const text = document.createElement('div');
-            text.innerText = '你出現的那一刻，星星都羨慕了。';
-            text.style.position = 'fixed';
-            text.style.top = '60%';
-            text.style.left = '50%';
-            text.style.transform = 'translateX(-50%)';
-            text.style.fontFamily = "'Dancing Script', cursive";
-            text.style.fontSize = '28px';
-            text.style.color = 'white';
-            text.style.zIndex = 996;
-            text.style.opacity = '0';
-            text.style.animation = 'text-fade-in 3s ease forwards';
-            document.body.appendChild(text);
-        }, 1500);
+        function triggerMeteorAnimation() {
+            const meteor = document.createElement('div');
+            meteor.classList.add('meteor');
+            document.body.appendChild(meteor);
 
-        // 跳轉
-        setTimeout(() => {
-            window.location.href = 'yes.html';
-        }, 5000);
-    }
-</script>
+            for (let i = 0; i < 10; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.classList.add('sparkle');
+                sparkle.style.top = Math.random() * 100 + 'vh';
+                sparkle.style.left = Math.random() * 100 + 'vw';
+                document.body.appendChild(sparkle);
+            }
+
+            setTimeout(() => {
+                const circle = document.createElement('div');
+                circle.classList.add('heart-circle');
+                document.body.appendChild(circle);
+            }, 1000);
+
+            setTimeout(() => {
+                const text = document.createElement('div');
+                text.classList.add('love-text');
+                text.innerText = '你出現的那一刻，星星都羨慕了。';
+                document.body.appendChild(text);
+            }, 1500);
+
+            setTimeout(() => {
+                window.location.href = 'yes.html';
+            }, 5000);
+        }
+    </script>
 </body>
 </html>
