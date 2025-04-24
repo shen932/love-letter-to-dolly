@@ -235,6 +235,22 @@
             0% { transform: translateY(0) rotate(45deg); opacity: 1; }
             100% { transform: translateY(100vh) rotate(45deg); opacity: 0; }
         }
+
+        .star {
+            position: fixed;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle 3s infinite ease-in-out;
+            z-index: 0;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.1; transform: scale(1); }
+            50% { opacity: 0.9; transform: scale(1.5); }
+        }
     </style>
 </head>
 <body>
@@ -308,11 +324,10 @@
         我不知道妳最終想停下來的地方會是哪裡，  
         但我知道，我希望那個地方能有我。  
         所以
-        
         這一次，我不只是想等妳回來——  
-        我想陪妳走下去。    
-                          **Shen Ching**
-    </div>
+        我想陪妳走下去。  
+
+                          **Shen Ching**</div>
 
     <div class="choices" id="choices">
         <button id="yesBtn">我願意</button>
@@ -352,7 +367,6 @@
                     }, 500);
                 }
             }
-
             addCharacter();
         }
 
@@ -367,61 +381,66 @@
 
         setInterval(createHeart, 500);
 
-        
+        function createStars() {
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                star.style.top = Math.random() * 100 + 'vh';
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.animationDelay = Math.random() * 5 + 's';
+                document.body.appendChild(star);
+            }
+        }
+        createStars();
 
-function triggerMeteorAnimation() {
-    // 流星（加大、加亮）
-    const meteor = document.createElement('div');
-    meteor.style.position = 'fixed';
-    meteor.style.top = '-80px';
-    meteor.style.right = '-120px';
-    meteor.style.width = '12px';
-    meteor.style.height = '12px';
-    meteor.style.background = 'white';
-    meteor.style.borderRadius = '50%';
-    meteor.style.boxShadow = '0 0 20px 10px rgba(255,255,255,1)';
-    meteor.style.zIndex = 999;
-    meteor.style.animation = 'meteor-fall 1.2s ease-out forwards';
-    document.body.appendChild(meteor);
+        function triggerMeteorAnimation() {
+            const meteor = document.createElement('div');
+            meteor.style.position = 'fixed';
+            meteor.style.top = '-80px';
+            meteor.style.right = '-120px';
+            meteor.style.width = '12px';
+            meteor.style.height = '12px';
+            meteor.style.background = 'white';
+            meteor.style.borderRadius = '50%';
+            meteor.style.boxShadow = '0 0 20px 10px rgba(255,255,255,1)';
+            meteor.style.zIndex = 999;
+            meteor.style.animation = 'meteor-fall 1.2s ease-out forwards';
+            document.body.appendChild(meteor);
 
-    // 星塵
-    for (let i = 0; i < 15; i++) {
-        const sparkle = document.createElement('div');
-        sparkle.classList.add('sparkle');
-        sparkle.style.top = 30 + i * 2 + 'vh';
-        sparkle.style.left = 70 - i * 4 + 'vw';
-        sparkle.style.animation = 'sparkle-fade 2s linear forwards';
-        document.body.appendChild(sparkle);
-    }
+            for (let i = 0; i < 15; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.classList.add('sparkle');
+                sparkle.style.top = 30 + i * 2 + 'vh';
+                sparkle.style.left = 70 - i * 4 + 'vw';
+                sparkle.style.animation = 'sparkle-fade 2s linear forwards';
+                document.body.appendChild(sparkle);
+            }
 
-    // 心形光圈
-    setTimeout(() => {
-        const circle = document.createElement('div');
-        circle.classList.add('heart-circle');
-        document.body.appendChild(circle);
-    }, 1000);
+            setTimeout(() => {
+                const circle = document.createElement('div');
+                circle.classList.add('heart-circle');
+                document.body.appendChild(circle);
+            }, 1000);
 
-    // 情話 + 框框 + 濃字體 + 發光效果
-    setTimeout(() => {
-        const text = document.createElement('div');
-        text.classList.add('love-text');
-        text.innerText = '你出現的那一刻，星星都羨慕了';
-        text.style.padding = '15px 25px';
-        text.style.border = '2px solid #f06292';
-        text.style.borderRadius = '12px';
-        text.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
-        text.style.color = '#f06292';
-        text.style.fontWeight = 'bold';
-        text.style.textShadow = '0 0 8px rgba(240, 98, 146, 0.8)';
-        text.style.boxShadow = '0 0 12px rgba(240, 98, 146, 0.6)';
-        document.body.appendChild(text);
-    }, 1500);
+            setTimeout(() => {
+                const text = document.createElement('div');
+                text.classList.add('love-text');
+                text.innerText = '你出現的那一刻，星星都羨慕了';
+                text.style.padding = '15px 25px';
+                text.style.border = '2px solid #f06292';
+                text.style.borderRadius = '12px';
+                text.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+                text.style.color = '#f06292';
+                text.style.fontWeight = 'bold';
+                text.style.textShadow = '0 0 8px rgba(240, 98, 146, 0.8)';
+                text.style.boxShadow = '0 0 12px rgba(240, 98, 146, 0.6)';
+                document.body.appendChild(text);
+            }, 1500);
 
-    // 5 秒後跳轉
-    setTimeout(() => {
-        window.location.href = 'yes.html';
-    }, 8500);
-}
-</script>
+            setTimeout(() => {
+                window.location.href = 'yes.html';
+            }, 8500);
+        }
+    </script>
 </body>
 </html>
