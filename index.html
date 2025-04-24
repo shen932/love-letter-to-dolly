@@ -90,7 +90,7 @@
             transform: rotate(-20deg);
         }
 
-        h1, .letter, .choices {
+        h1, .letter, .choices, .paper-plane {
             display: none;
             animation: fadeIn 1s ease forwards;
         }
@@ -145,46 +145,25 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .heart {
-            position: fixed;
-            top: -50px;
-            width: 20px;
-            height: 20px;
-            background-color: #ff7eb9;
-            transform: rotate(45deg);
-            animation: fall 10s linear infinite;
-            opacity: 0.8;
-            z-index: 1;
-        }
-
-        .heart::before, .heart::after {
-            content: "";
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background-color: #ff7eb9;
-            border-radius: 50%;
-        }
-
-        .heart::before {
-            top: -10px;
-            left: 0;
-        }
-
-        .heart::after {
-            left: -10px;
-            top: 0;
-        }
-
-        @keyframes fall {
+        @keyframes flyPlane {
             0% {
-                transform: translateY(0) rotate(45deg);
-                opacity: 1;
+                transform: translateX(-100vw) rotate(45deg);
             }
             100% {
-                transform: translateY(100vh) rotate(45deg);
-                opacity: 0;
+                transform: translateX(0) rotate(45deg);
             }
+        }
+
+        .paper-plane {
+            position: fixed;
+            top: 50%;
+            left: -100px;
+            width: 50px;
+            height: 50px;
+            background: url('paper-plane.png') no-repeat center center;
+            background-size: contain;
+            animation: flyPlane 2s forwards;
+            z-index: 999;
         }
     </style>
 </head>
@@ -207,71 +186,15 @@
     <h1 id="mainTitle">To Dolly</h1>
 
     <div class="letter" id="letterContent">
-        原本想說要用手寫的
-        因為我覺得那樣比較有溫度
-        但我怕我的字太醜 
-        你會忍不住笑我  
-        所以就用了這個方式
-        
-        其實我也是第一次弄這個東西 
-        也不知道做起來他會變成怎樣  
-        更不知道你看到的那一刻
-        你會是什麼樣的心情  
-        好了 接下來是我想說的  
-
-        我們是在妳離開前才認識的
-        那時候
-        我沒想到一段關係  
-        會在妳離開後悄悄開始
-        也沒想到
-        在這段距離裡
-        我會一直默默地期待妳回來的那一天  
-
-        妳在法國的日子裡
-        雖然我們分隔兩地
-        但每次妳分享的故事、回憶和感受  
-        我彷彿也跟著妳一起走過那段旅程  
-        這些時光讓我感覺
-        不僅是妳在冒險
-        就好像我也在與妳一起探索世界。
-
-        妳的冒險帶著夢想與回憶  
-        像那幅畫中的氣球  
-        承載著妳的故事與成長  
-        它飛得很高，背負著旅程的重量，  
-        最後，還是飛回了熟悉的地方。  
-
-        而我們的連結，就像那棟  
-        被無數氣球牽引的房子——  
-        輕盈卻穩定
-        漂浮卻從未斷線
-        每天的訊息和通話
-        讓我們的生活不再遙遠
-        也讓我們習慣了彼此的存在
-        不知不覺
-        我們成為了彼此日常的一部分
-        也變成了
-        彼此在乎的人
-
-        所以我想把這句話放在這裡：  
-
-        **Adventure brings you home**  
-
-        妳回來了，帶著遠方經歷的一切，  
-        也帶著那個更成熟、更自由的妳。  
-        我不知道妳最終想停下來的地方會是哪裡，  
-        但我知道，我希望那個地方能有我。  
-        所以
-        這一次，我不只是想等妳回來——  
-        我想陪妳走下去。  
-
-                          **Shen Ching**
+        <!-- 信件內容 -->
     </div>
 
     <div class="choices" id="choices">
         <button onclick="location.href='yes.html'">我願意</button>
         <button onclick="location.href='wait.html'">再想想</button>
     </div>
+
+    <div class="paper-plane" id="paperPlane"></div>
 
     <script>
         function openEnvelope() {
@@ -304,24 +227,23 @@
                     i++;
                     setTimeout(addCharacter, 120);
                 } else {
-                    // 當信件完全顯示完後，再顯示按鈕
-                    document.getElementById('choices').style.display = 'block';
+                    // 信件內容顯示完成後顯示紙飛機
+                    showPaperPlane();
                 }
             }
 
             addCharacter();
         }
 
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = (5 + Math.random() * 5) + 's';
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 10000);
-        }
+        function showPaperPlane() {
+            const paperPlane = document.getElementById('paperPlane');
+            paperPlane.style.display = 'block';
 
-        setInterval(createHeart, 500);
+            // 延遲顯示按鈕
+            setTimeout(() => {
+                document.getElementById('choices').style.display = 'block';
+            }, 2000);
+        }
     </script>
 </body>
 </html>
