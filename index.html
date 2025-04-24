@@ -11,10 +11,26 @@
         body {
             margin: 0;
             padding: 0;
-            background: linear-gradient(to bottom, #e0f7fa, #f48fb1);
+            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
             font-family: 'jf-openhuninn', 'Dancing Script', cursive, sans-serif;
             overflow-x: hidden;
             min-height: 100vh;
+            color: white;
+        }
+
+        .star {
+            position: fixed;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: twinkle 2s infinite ease-in-out alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.3; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.6); }
         }
 
         .envelope-wrapper {
@@ -94,7 +110,7 @@
             font-family: 'Pacifico', cursive;
             font-size: 60px;
             text-align: center;
-            color: #C2185B;
+            color: #f8bbd0;
             margin-top: 30px;
         }
 
@@ -102,15 +118,11 @@
             max-width: 750px;
             margin: 40px auto;
             padding: 40px;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(0, 0, 0, 0.6);
             border-radius: 20px;
             font-size: 26px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             white-space: pre-wrap;
-            color: #4b2e2e;
-            background-image: url('4C39901F-2AD0-446B-9950-A3908910A6EA.png');
-            background-size: cover;
-            background-position: center;
+            color: #fff;
         }
 
         .choices {
@@ -142,23 +154,18 @@
 
         .meteor {
             position: fixed;
-            width: 8px;
-            height: 8px;
+            width: 12px;
+            height: 12px;
             background-color: white;
             border-radius: 50%;
-            box-shadow: 0 0 8px 4px rgba(255,255,255,0.8);
+            box-shadow: 0 0 20px 10px rgba(255,255,255,1);
             z-index: 999;
             animation: meteor-fall 1.2s ease-out forwards;
         }
 
-        .sparkle {
-            width: 4px;
-            height: 4px;
-            background-color: white;
-            border-radius: 50%;
-            position: fixed;
-            z-index: 998;
-            animation: sparkle-fade 2s linear forwards;
+        @keyframes meteor-fall {
+            0% { top: -50px; right: -100px; transform: rotate(0deg); }
+            100% { top: 100vh; right: 100vw; transform: rotate(360deg); }
         }
 
         .heart-circle {
@@ -170,31 +177,8 @@
             transform: translate(-50%, -50%);
             border: 3px solid pink;
             border-radius: 50%;
-            z-index: 997;
+            z-index: 998;
             animation: heart-pulse 2s ease-out forwards;
-        }
-
-        .love-text {
-            position: fixed;
-            top: 60%;
-            left: 50%;
-            transform: translateX(-50%);
-            font-family: 'Dancing Script', cursive;
-            font-size: 28px;
-            color: white;
-            z-index: 996;
-            opacity: 0;
-            animation: text-fade-in 3s ease forwards;
-        }
-
-        @keyframes meteor-fall {
-            0% { top: -50px; right: -100px; transform: rotate(0deg); }
-            100% { top: 100vh; right: 100vw; transform: rotate(360deg); }
-        }
-
-        @keyframes sparkle-fade {
-            0% { opacity: 1; transform: scale(1); }
-            100% { opacity: 0; transform: scale(0); }
         }
 
         @keyframes heart-pulse {
@@ -202,59 +186,33 @@
             50% { transform: scale(1.5); opacity: 1; }
         }
 
+        .love-text {
+            position: fixed;
+            top: 62%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Dancing Script', cursive;
+            font-size: 28px;
+            color: #f06292;
+            z-index: 997;
+            opacity: 0;
+            padding: 15px 25px;
+            border: 2px solid #f06292;
+            border-radius: 12px;
+            background-color: rgba(255, 255, 255, 0.1);
+            font-weight: bold;
+            text-shadow: 0 0 8px rgba(240, 98, 146, 0.8);
+            box-shadow: 0 0 12px rgba(240, 98, 146, 0.6);
+            animation: text-fade-in 3s ease forwards;
+        }
+
         @keyframes text-fade-in {
             0% { opacity: 0; }
             100% { opacity: 1; }
         }
-
-        .heart {
-            position: fixed;
-            top: -50px;
-            width: 20px;
-            height: 20px;
-            background-color: #ff7eb9;
-            transform: rotate(45deg);
-            animation: fall 10s linear infinite;
-            opacity: 0.8;
-            z-index: 1;
-        }
-
-        .heart::before, .heart::after {
-            content: "";
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background-color: #ff7eb9;
-            border-radius: 50%;
-        }
-
-        .heart::before { top: -10px; left: 0; }
-        .heart::after { left: -10px; top: 0; }
-
-        @keyframes fall {
-            0% { transform: translateY(0) rotate(45deg); opacity: 1; }
-            100% { transform: translateY(100vh) rotate(45deg); opacity: 0; }
-        }
-
-        .star {
-            position: fixed;
-            width: 2px;
-            height: 2px;
-            background: white;
-            border-radius: 50%;
-            opacity: 0;
-            animation: twinkle 3s infinite ease-in-out;
-            z-index: 0;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.1; transform: scale(1); }
-            50% { opacity: 0.9; transform: scale(1.5); }
-        }
     </style>
 </head>
 <body>
-    <img src="4C39901F-2AD0-446B-9950-A3908910A6EA.png" style="display: none;" alt="preload" />
     <audio id="bgMusic" src="陳奕迅－好久不見 音檔.mp3" preload="auto"></audio>
 
     <div class="envelope-wrapper">
@@ -327,7 +285,9 @@
         這一次，我不只是想等妳回來——  
         我想陪妳走下去。  
 
-                          **Shen Ching**</div>
+                          **Shen Ching**
+    
+    </div>
 
     <div class="choices" id="choices">
         <button id="yesBtn">我願意</button>
@@ -335,6 +295,16 @@
     </div>
 
     <script>
+        for (let i = 0; i < 80; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            star.style.left = Math.random() * 100 + 'vw';
+            star.style.top = Math.random() * 100 + 'vh';
+            star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            star.style.animationDelay = Math.random() * 5 + 's';
+            document.body.appendChild(star);
+        }
+
         function openEnvelope() {
             const envelope = document.getElementById('envelope');
             if (envelope.classList.contains('opened')) return;
@@ -370,51 +340,10 @@
             addCharacter();
         }
 
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = (5 + Math.random() * 5) + 's';
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 10000);
-        }
-
-        setInterval(createHeart, 500);
-
-        function createStars() {
-            for (let i = 0; i < 100; i++) {
-                const star = document.createElement('div');
-                star.classList.add('star');
-                star.style.top = Math.random() * 100 + 'vh';
-                star.style.left = Math.random() * 100 + 'vw';
-                star.style.animationDelay = Math.random() * 5 + 's';
-                document.body.appendChild(star);
-            }
-        }
-        createStars();
-
         function triggerMeteorAnimation() {
             const meteor = document.createElement('div');
-            meteor.style.position = 'fixed';
-            meteor.style.top = '-80px';
-            meteor.style.right = '-120px';
-            meteor.style.width = '12px';
-            meteor.style.height = '12px';
-            meteor.style.background = 'white';
-            meteor.style.borderRadius = '50%';
-            meteor.style.boxShadow = '0 0 20px 10px rgba(255,255,255,1)';
-            meteor.style.zIndex = 999;
-            meteor.style.animation = 'meteor-fall 1.2s ease-out forwards';
+            meteor.classList.add('meteor');
             document.body.appendChild(meteor);
-
-            for (let i = 0; i < 15; i++) {
-                const sparkle = document.createElement('div');
-                sparkle.classList.add('sparkle');
-                sparkle.style.top = 30 + i * 2 + 'vh';
-                sparkle.style.left = 70 - i * 4 + 'vw';
-                sparkle.style.animation = 'sparkle-fade 2s linear forwards';
-                document.body.appendChild(sparkle);
-            }
 
             setTimeout(() => {
                 const circle = document.createElement('div');
@@ -426,14 +355,6 @@
                 const text = document.createElement('div');
                 text.classList.add('love-text');
                 text.innerText = '你出現的那一刻，星星都羨慕了';
-                text.style.padding = '15px 25px';
-                text.style.border = '2px solid #f06292';
-                text.style.borderRadius = '12px';
-                text.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
-                text.style.color = '#f06292';
-                text.style.fontWeight = 'bold';
-                text.style.textShadow = '0 0 8px rgba(240, 98, 146, 0.8)';
-                text.style.boxShadow = '0 0 12px rgba(240, 98, 146, 0.6)';
                 document.body.appendChild(text);
             }, 1500);
 
