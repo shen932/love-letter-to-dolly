@@ -302,6 +302,7 @@
                 if (i < text.length) {
                     letterContent.innerHTML += text.charAt(i);
                     i++;
+                    letterContent.scrollIntoView({ behavior: 'smooth', block: 'end' });
                     setTimeout(addCharacter, 120);
                 } else {
                     // 當信件完全顯示完後，再顯示按鈕
