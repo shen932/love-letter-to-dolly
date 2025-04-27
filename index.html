@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>To Dolly</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Pacifico&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/gh/justfont/webfonts@master/huninn/style.css" rel="stylesheet">
     <style>
         * {
             box-sizing: border-box;
@@ -14,7 +13,7 @@
             margin: 0;
             padding: 0;
             background: linear-gradient(to bottom, #e0f7fa, #f48fb1);
-            font-family: 'jf-openhuninn', 'Dancing Script', cursive, sans-serif;
+            font-family: 'Dancing Script', cursive;
             overflow-x: hidden;
             min-height: 100vh;
         }
@@ -90,36 +89,48 @@
             transform: rotate(-20deg);
         }
 
+        /* 蝴蝶結樣式 */
         .ribbon {
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%); /* 完全居中 */
-            width: 100px;
-            height: 50px;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 40px;
             background-color: #f48fb1;
-            border-radius: 50%;
+            border-radius: 8px;
             z-index: 1;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
+        /* 蝴蝶結兩側圓圈 */
         .ribbon::before, .ribbon::after {
             content: "";
             position: absolute;
-            width: 20px;
-            height: 20px;
+            width: 30px;
+            height: 30px;
             background-color: #f48fb1;
             border-radius: 50%;
         }
 
         .ribbon::before {
-            left: -30px; /* 蝴蝶結左邊的圓圈 */
+            left: -20px;
         }
 
         .ribbon::after {
-            right: -30px; /* 蝴蝶結右邊的圓圈 */
+            right: -20px;
+        }
+
+        /* 蝴蝶結中心的繩結 */
+        .ribbon .knot {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background-color: #f1c6d2;
+            border-radius: 50%;
+            z-index: 2;
         }
 
         h1, .letter, .choices {
@@ -145,9 +156,6 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             white-space: pre-wrap;
             color: #4b2e2e;
-            background-image: url('4C39901F-2AD0-446B-9950-A3908910A6EA.png');
-            background-size: cover;
-            background-position: center;
         }
 
         .choices {
@@ -177,63 +185,19 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .heart {
-            position: fixed;
-            top: -50px;
-            width: 20px;
-            height: 20px;
-            background-color: #ff7eb9;
-            transform: rotate(45deg);
-            animation: fall 10s linear infinite;
-            opacity: 0.8;
-            z-index: 1;
-        }
-
-        .heart::before, .heart::after {
-            content: "";
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background-color: #ff7eb9;
-            border-radius: 50%;
-        }
-
-        .heart::before {
-            top: -10px;
-            left: 0;
-        }
-
-        .heart::after {
-            left: -10px;
-            top: 0;
-        }
-
-        @keyframes fall {
-            0% {
-                transform: translateY(0) rotate(45deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(100vh) rotate(45deg);
-                opacity: 0;
-            }
-        }
     </style>
 </head>
 <body>
-    <!-- 預載入背景圖片 -->
-    <img src="4C39901F-2AD0-446B-9950-A3908910A6EA.png" style="display: none;" alt="preload" />
-
-    <!-- 音樂 -->
-    <audio id="bgMusic" src="陳奕迅－好久不見 音檔.mp3" preload="auto"></audio>
-
     <div class="envelope-wrapper">
         <div class="envelope" onclick="openEnvelope()" id="envelope">
             <div class="flap"></div>
             <div class="letter-sheet"></div>
             <div class="name-label">To Dolly</div>
             <div class="heart-sticker">♥</div>
-            <div class="ribbon"></div> <!-- 信封上的蝴蝶結 -->
+            <!-- 蝴蝶結 -->
+            <div class="ribbon">
+                <div class="knot"></div>
+            </div>
         </div>
     </div>
 
@@ -312,10 +276,6 @@
             if (envelope.classList.contains('opened')) return;
             envelope.classList.add('opened');
 
-            // 播放背景音樂
-            const music = document.getElementById('bgMusic');
-            music.play();
-
             // 延遲顯示信內容
             setTimeout(() => {
                 document.querySelector('.envelope-wrapper').style.display = 'none';
@@ -344,17 +304,6 @@
 
             addCharacter();
         }
-
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = (5 + Math.random() * 5) + 's';
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 10000);
-        }
-
-        setInterval(createHeart, 500);
     </script>
 </body>
 </html>
