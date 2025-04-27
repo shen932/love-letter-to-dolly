@@ -89,48 +89,14 @@
             transform: rotate(-20deg);
         }
 
-        /* 蝴蝶結樣式 */
+        /* 蝴蝶結符號 🎀 */
         .ribbon {
             position: absolute;
-            top: 50%;
+            top: 8px;
             left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80px;
-            height: 40px;
-            background-color: #f48fb1;
-            border-radius: 8px;
+            transform: translateX(-50%);
+            font-size: 40px;
             z-index: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* 蝴蝶結兩側圓圈 */
-        .ribbon::before, .ribbon::after {
-            content: "";
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            background-color: #f48fb1;
-            border-radius: 50%;
-        }
-
-        .ribbon::before {
-            left: -20px;
-        }
-
-        .ribbon::after {
-            right: -20px;
-        }
-
-        /* 蝴蝶結中心的繩結 */
-        .ribbon .knot {
-            position: absolute;
-            width: 12px;
-            height: 12px;
-            background-color: #f1c6d2;
-            border-radius: 50%;
-            z-index: 2;
         }
 
         h1, .letter, .choices {
@@ -194,10 +160,8 @@
             <div class="letter-sheet"></div>
             <div class="name-label">To Dolly</div>
             <div class="heart-sticker">♥</div>
-            <!-- 蝴蝶結 -->
-            <div class="ribbon">
-                <div class="knot"></div>
-            </div>
+            <!-- 蝴蝶結符號 -->
+            <div class="ribbon">🎀</div>
         </div>
     </div>
 
